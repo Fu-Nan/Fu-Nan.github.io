@@ -1,0 +1,533 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shell通配符 | FuNan</title><meta name="description" content="Shell通配符Shell常用通配符   字符 含义 实例    * 匹配0或多个字符 a*b,表示a与b之间可以有任意长度的任意字符，也可以一个都没有,如aabcb、axyzb、a012b、ab   ? 匹配任意一个字符 a?b,表示a与b之间必须也只能有一个字符,可以是任意字符,如aab、abb、acb、a0b   [list] 匹配list中的任意单一字符 a[xyz]b,表示a与b之间必须"><meta name="keywords" content="Shell"><meta name="author" content="FuNan,1186174184@qq.com"><meta name="copyright" content="FuNan"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://blog.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Shell通配符"><meta property="og:url" content="http://blog.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/"><meta property="og:site_name" content="FuNan"><meta property="og:description" content="Shell通配符Shell常用通配符   字符 含义 实例    * 匹配0或多个字符 a*b,表示a与b之间可以有任意长度的任意字符，也可以一个都没有,如aabcb、axyzb、a012b、ab   ? 匹配任意一个字符 a?b,表示a与b之间必须也只能有一个字符,可以是任意字符,如aab、abb、acb、a0b   [list] 匹配list中的任意单一字符 a[xyz]b,表示a与b之间必须"><meta property="og:image" content="https://s1.ax1x.com/2020/05/21/YHqv7j.jpg"><meta property="article:published_time" content="2020-05-21T04:27:12.000Z"><meta property="article:modified_time" content="2020-08-30T09:48:52.708Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = '1'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-08-30 17:48:52'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="FuNan" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">19</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">16</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Shell%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-text">Shell通配符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E5%B8%B8%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-text">Shell常用通配符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E5%85%83%E5%AD%97%E7%AC%A6"><span class="toc-text">Shell元字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-text">Shell转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6%E5%8F%8A%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">Shell逻辑运算符及表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">条件运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E5%88%A4%E6%96%AD%E7%AC%A6"><span class="toc-text">文件和目录判断符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%80%BB%E8%BE%91%E5%8D%B7%E6%A0%87%E5%88%A4%E6%96%AD%E7%AC%A6"><span class="toc-text">程序的逻辑卷标判断符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%A3%E6%A1%88%E7%9A%84%E5%B1%9E%E6%80%A7%E5%88%A4%E6%96%AD%E7%AC%A6"><span class="toc-text">档案的属性判断符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E6%A1%A3%E6%A1%88%E4%B9%8B%E9%97%B4%E7%9A%84%E5%88%A4%E6%96%AD%E4%B8%8E%E6%AF%94%E8%BE%83%E7%AC%A6"><span class="toc-text">两个档案之间的判断与比较符</span></a></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://s2.ax1x.com/2020/02/22/3QNb4g.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">FuNan</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Shell通配符</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-21T04:27:12.000Z" title="发表于 2020-05-21 12:27:12">2020-05-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-30T09:48:52.708Z" title="更新于 2020-08-30 17:48:52">2020-08-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4/">云系统维护</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Shell通配符"><a href="#Shell通配符" class="headerlink" title="Shell通配符"></a>Shell通配符</h1><h2 id="Shell常用通配符"><a href="#Shell常用通配符" class="headerlink" title="Shell常用通配符"></a>Shell常用通配符</h2><table>
+<thead>
+<tr>
+<th align="center">字符</th>
+<th align="center">含义</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*</td>
+<td align="center">匹配0或多个字符</td>
+<td align="left">a*b,表示a与b之间可以有任意长度的任意字符，也可以一个都没有,如aabcb、axyzb、a012b、ab</td>
+</tr>
+<tr>
+<td align="center">?</td>
+<td align="center">匹配任意一个字符</td>
+<td align="left">a?b,表示a与b之间必须也只能有一个字符,可以是任意字符,如aab、abb、acb、a0b</td>
+</tr>
+<tr>
+<td align="center">[list]</td>
+<td align="center">匹配list中的任意单一字符</td>
+<td align="left">a[xyz]b,表示a与b之间必须也只能有一个字符,但只能是x或y或z,如:axb、ayb、azb</td>
+</tr>
+<tr>
+<td align="center">[!list]</td>
+<td align="center">匹配除list中的任意单一字符</td>
+<td align="left">a[!0-9],表示a与b之间必须也只能有一个字符,但不能是阿拉伯数字,如axb、aab、a-b</td>
+</tr>
+<tr>
+<td align="center">[c1-c2]</td>
+<td align="center">匹配c1-c2中的任意单一字符,如：[0-9][a-z]</td>
+<td align="left">a[0-9]b,表示0与9之间必须也只能有一个字符如a0b、a1b、a9b</td>
+</tr>
+<tr>
+<td align="center">{string1,string2}</td>
+<td align="center">匹配string1或string2（或更多）其一字符串</td>
+<td align="left">a{abc,xyz,123}b,表示a与b之间只能是abc或xzy或123</td>
+</tr>
+</tbody></table>
+<h2 id="Shell元字符"><a href="#Shell元字符" class="headerlink" title="Shell元字符"></a>Shell元字符</h2><table>
+<thead>
+<tr>
+<th align="center">字符</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">^</td>
+<td align="left">只匹配行首</td>
+</tr>
+<tr>
+<td align="center">$</td>
+<td align="left">只匹配行尾</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left">只一个单字符后紧跟*，匹配0个或多个此单字符</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left">匹配一个或多个字符</td>
+</tr>
+<tr>
+<td align="center">?</td>
+<td align="left">匹配模式出现频率，例如使用/XY?Z/匹配X Y Z或Y Z</td>
+</tr>
+<tr>
+<td align="center">[]</td>
+<td align="left">只匹配[]内字符。可以是单个字符，也可以是字符序列。可以使用-表示[]内字符序列范围，如用[1-5]代替[1 2 3 4 5]</td>
+</tr>
+<tr>
+<td align="center">[x-y]</td>
+<td align="left">匹配以字符范围组成的组中的一个字符</td>
+</tr>
+<tr>
+<td align="center">[^]</td>
+<td align="left">匹配一个不在范围内的字符</td>
+</tr>
+<tr>
+<td align="center">.</td>
+<td align="left">只匹配任意单字符</td>
+</tr>
+<tr>
+<td align="center">pattern{n}</td>
+<td align="left">只用来匹配前面pattern出现次数,n为次数</td>
+</tr>
+<tr>
+<td align="center">pattern{n,}m</td>
+<td align="left">含义同上,但次数最少为n*</td>
+</tr>
+<tr>
+<td align="center">pattern{n,m}</td>
+<td align="left">含义同上,但pattern出现次数在n与m之间</td>
+</tr>
+</tbody></table>
+<h2 id="Shell转义字符"><a href="#Shell转义字符" class="headerlink" title="Shell转义字符"></a>Shell转义字符</h2><table>
+<thead>
+<tr>
+<th align="center">字符</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">‘’（单引号）</td>
+<td align="left">又叫硬转义,其内部所有的Shell元字符、通配符都会被关掉。注：硬转义中不允许出现’（单引号）</td>
+</tr>
+<tr>
+<td align="center">(反斜杠)</td>
+<td align="left">又叫转义，去除其后紧跟的元字符或通配符的特殊意义</td>
+</tr>
+</tbody></table>
+<h2 id="Shell逻辑运算符及表达式"><a href="#Shell逻辑运算符及表达式" class="headerlink" title="Shell逻辑运算符及表达式"></a>Shell逻辑运算符及表达式</h2><h3 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h3><table>
+<thead>
+<tr>
+<th align="center">运算符号</th>
+<th align="center">代表意义</th>
+<th align="center">应用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">=</td>
+<td align="center">等于</td>
+<td align="center">整型或字符串比较:str1=str2</td>
+<td align="left">字符串str1和字符串str2相等时返回真,如果在[]中,只能是字符串</td>
+</tr>
+<tr>
+<td align="center">==</td>
+<td align="center">等于</td>
+<td align="center">整型或字符串比较:str1==str2</td>
+<td align="left">字符串str1和字符串str2相等时返回真,如果在[]中,只能是字符串</td>
+</tr>
+<tr>
+<td align="center">!=</td>
+<td align="center">不等于</td>
+<td align="center">整型或字符串比较:str1!=str2</td>
+<td align="left">字符串str1和字符串str2不相等时返回真,如果在[]中,只能是字符串</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="center">小于</td>
+<td align="center">整型或字符串比较:str1&lt;str2</td>
+<td align="left">按字典顺序排序,字符串str1在字符串str2之前,在[]中,它表示字符串,如需使用请转义&lt;</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="center">大于</td>
+<td align="center">整型或字符串比较:str1&gt;str2</td>
+<td align="left">在[]中,它表示字符串,如需使用请转义&gt;</td>
+</tr>
+<tr>
+<td align="center">-eq</td>
+<td align="center">等于</td>
+<td align="center">整型比较:int1 -eq int2</td>
+<td align="left">如果int1等于int2,则返回真</td>
+</tr>
+<tr>
+<td align="center">-ne</td>
+<td align="center">不等于</td>
+<td align="center">整型比较:int1 -ne int2</td>
+<td align="left">如果int1不等于int2,则返回真</td>
+</tr>
+<tr>
+<td align="center">-lt</td>
+<td align="center">小于</td>
+<td align="center">整型比较:int1 -lt int2</td>
+<td align="left">如果int1小于int2,则返回真</td>
+</tr>
+<tr>
+<td align="center">-gt</td>
+<td align="center">大于</td>
+<td align="center">整型比较:int1 -gt int2</td>
+<td align="left">如果int1大于int2,则返回真</td>
+</tr>
+<tr>
+<td align="center">-le</td>
+<td align="center">小于或等于</td>
+<td align="center">整型比较:int -le int2</td>
+<td align="left">如果int1小于或等于int2,则返回真</td>
+</tr>
+<tr>
+<td align="center">-ge</td>
+<td align="center">大于或等于</td>
+<td align="center">整型比较:int1 -ge int2</td>
+<td align="left">如果int1大于或等于int2,则返回真</td>
+</tr>
+<tr>
+<td align="center">-z</td>
+<td align="center">空字符串</td>
+<td align="center">字符串比较:-z string</td>
+<td align="left">字符串string为空串(长度为0）时返回真</td>
+</tr>
+<tr>
+<td align="center">-n</td>
+<td align="center">非空字符串</td>
+<td align="center">字符串比较:-n string</td>
+<td align="left">字符串string为非空字符串时返回真</td>
+</tr>
+</tbody></table>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><table>
+<thead>
+<tr>
+<th align="center">运算符号</th>
+<th align="center">代表意义</th>
+<th align="center">应用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-a</td>
+<td align="center">双方都成立(and)</td>
+<td align="center">逻辑表达式 -a 逻辑表达式</td>
+<td align="left">在[]表达式中使用</td>
+</tr>
+<tr>
+<td align="center">-o</td>
+<td align="center">单方成立(or)</td>
+<td align="center">逻辑表达式 -o 逻辑表达式</td>
+<td align="left">在[]表达式中使用</td>
+</tr>
+<tr>
+<td align="center">!</td>
+<td align="center">逻辑否,条件为假,结果为真</td>
+<td align="center">&nbsp;</td>
+<td align="left">&nbsp;</td>
+</tr>
+<tr>
+<td align="center">&amp;&amp;</td>
+<td align="center">双方都成立（and）</td>
+<td align="center">逻辑表达式 &amp;&amp; 逻辑表达式</td>
+<td align="left">在[[]]表达式中使用</td>
+</tr>
+<tr>
+<td align="center">\</td>
+<td align="center">\</td>
+<td align="center">&nbsp;</td>
+<td align="left">单方成立(or)</td>
+</tr>
+</tbody></table>
+<h3 id="文件和目录判断符"><a href="#文件和目录判断符" class="headerlink" title="文件和目录判断符"></a>文件和目录判断符</h3><table>
+<thead>
+<tr>
+<th align="center">逻辑符号</th>
+<th align="center">代表意义</th>
+<th align="center">应用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f</td>
+<td align="center">判断文件是否存在</td>
+<td align="center">-f filename</td>
+<td align="left">当filename存在并且是正规文件时返回真</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">判断目录是否存在</td>
+<td align="center">-d pathname</td>
+<td align="left">当pathname存在并且是一个目录时返回真</td>
+</tr>
+<tr>
+<td align="center">-b</td>
+<td align="center">判断是否为一个块文件</td>
+<td align="center">-b filename</td>
+<td align="left">当filename存在并且是块文件时返回真(返回0)</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">判断是否为一个字符文件</td>
+<td align="center">-c filename</td>
+<td align="left">当filename存在并且是字符文件时返回真</td>
+</tr>
+<tr>
+<td align="center">-S</td>
+<td align="center">判断是否为一个socket</td>
+<td align="center">-S filename</td>
+<td align="left">当filename存在并且是socket时返回真</td>
+</tr>
+<tr>
+<td align="center">-L</td>
+<td align="center">判断是否为一个符号链接文件</td>
+<td align="center">-L filename</td>
+<td align="left">当filename存在并且是符号链接文件时返回真</td>
+</tr>
+<tr>
+<td align="center">-e</td>
+<td align="center">判断文件或目录是否存在</td>
+<td align="center">-e pathname</td>
+<td align="left">当由pathname指定的文件或目录存在时返回真</td>
+</tr>
+</tbody></table>
+<h3 id="程序的逻辑卷标判断符"><a href="#程序的逻辑卷标判断符" class="headerlink" title="程序的逻辑卷标判断符"></a>程序的逻辑卷标判断符</h3><table>
+<thead>
+<tr>
+<th align="center">逻辑符号</th>
+<th align="center">代表意义</th>
+<th align="center">应用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-G</td>
+<td align="center">判断是否由GID所执行的程序所拥有</td>
+<td align="center">-G pathname</td>
+<td align="left">当由pathname指定的文件或目录存在,并且属于当前进程有效用户ID的用户的用户组时返回真</td>
+</tr>
+<tr>
+<td align="center">-O</td>
+<td align="center">判断是否由UID所执行的程序所拥有</td>
+<td align="center">-O pathname</td>
+<td align="left">当由pathname指定的文件或目录存在,并且被当前进程有效用户ID的用户拥有时返回真</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">判断是否为程序间传送信息的命名管道或FIFO</td>
+<td align="center">-p filename</td>
+<td align="left">当filename存在并且是命名管道时返回真</td>
+</tr>
+</tbody></table>
+<h3 id="档案的属性判断符"><a href="#档案的属性判断符" class="headerlink" title="档案的属性判断符"></a>档案的属性判断符</h3><table>
+<thead>
+<tr>
+<th align="center">逻辑符号</th>
+<th align="center">代表意义</th>
+<th align="center">应用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">判断是否为可读的属性</td>
+<td align="center">-r pathname</td>
+<td align="left">当由pathname指定的文件或目录存在并且可读时返回真</td>
+</tr>
+<tr>
+<td align="center">-w</td>
+<td align="center">判断是否为可以写入的属性</td>
+<td align="center">-w pathname</td>
+<td align="left">当由pathname指定的文件或目录存在并且可写时返回真</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">判断是否为可执行的属性</td>
+<td align="center">-x pathname</td>
+<td align="left">当由pathname指定的文件或目录存在并且可执行时返回真</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">判断是否为非空白档案</td>
+<td align="center">-s filename</td>
+<td align="left">当filename存在并且文件大小大于0时返回真</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">判断是否具有SUID的属性</td>
+<td align="center">-u pathname</td>
+<td align="left">当由pathname指定的文件或目录存在并且设置了SUID位时返回真</td>
+</tr>
+<tr>
+<td align="center">-g</td>
+<td align="center">判断是否具有SGID的属性</td>
+<td align="center">-g pathname</td>
+<td align="left">当由pathname指定的文件或目录存在并且设置了SGID位时返回真</td>
+</tr>
+<tr>
+<td align="center">-k</td>
+<td align="center">判断是否具有粘滞的属性</td>
+<td align="center">-k pathname</td>
+<td align="left">当由pathname指定的文件或目录存在并且设置了“粘滞”位时返回真</td>
+</tr>
+</tbody></table>
+<h3 id="两个档案之间的判断与比较符"><a href="#两个档案之间的判断与比较符" class="headerlink" title="两个档案之间的判断与比较符"></a>两个档案之间的判断与比较符</h3><table>
+<thead>
+<tr>
+<th align="center">逻辑符号</th>
+<th align="center">代表意义</th>
+<th align="center">应用</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-nt</td>
+<td align="center">第一个比第二个档案新</td>
+<td align="center">file1 -nt file2</td>
+<td align="left">file1比file2新时返回真</td>
+</tr>
+<tr>
+<td align="center">-ot</td>
+<td align="center">第一个比第二个档案旧</td>
+<td align="center">file1 -ot file2</td>
+<td align="left">file1比file2旧时返回真</td>
+</tr>
+<tr>
+<td align="center">-ef</td>
+<td align="center">第一个与第二个档案为同一个档案</td>
+<td align="center">file1 -ef file2</td>
+<td align="left">file1和file2是同一个档案时返回真</td>
+</tr>
+</tbody></table>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1186174184@qq.com">FuNan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/">http://blog.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.ifunan.cn" target="_blank">FuNan</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Shell/">Shell</a></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2020/05/21/YHqv7j.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://s1.ax1x.com/2020/08/29/dTYplQ.th.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://s1.ax1x.com/2020/08/29/dTYplQ.th.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://s1.ax1x.com/2020/08/29/dTYkT0.th.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://s1.ax1x.com/2020/08/29/dTYkT0.th.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/04/26/%E4%BA%91%E5%AD%98%E5%82%A8_Ceph/"><img class="next-cover" data-lazy-src="https://s2.ax1x.com/2020/03/02/3RqqD1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ceph分布式存储系统搭建</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By FuNan</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"/><span>渝ICP备19012495号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: '5DqGP7a9pxo0qN1aMDmcLECK-gzGzoHsz',
+      appKey: 'HC3xc6E4z6O7fPW5enPcgLjU',
+      placeholder: '随便写点儿啥...',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script></div></body></html>

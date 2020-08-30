@@ -2,154 +2,161 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/02/28/%E9%9A%8F%E6%89%8B%E8%AE%B0_%E4%BA%91%E8%AE%A1%E7%AE%97%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>http://www.ifunan.cn/tags/index.html</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/02/25/%E9%9A%8F%E6%89%8B%E8%AE%B0_Linux_FTP/</loc>
+    <loc>http://www.ifunan.cn/categories/index.html</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/02/22/%E9%9A%8F%E6%89%8B%E8%AE%B0/</loc>
+    <loc>http://www.ifunan.cn/about/index.html</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/03/05/%E5%A4%A7%E6%95%B0%E6%8D%AE_Hadoop%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://www.ifunan.cn/2020/02/28/%E9%9A%8F%E6%89%8B%E8%AE%B0_%E4%BA%91%E8%AE%A1%E7%AE%97%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/03/24/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Tomcat/</loc>
+    <loc>http://www.ifunan.cn/2020/02/25/%E9%9A%8F%E6%89%8B%E8%AE%B0_Linux_FTP/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/</loc>
+    <loc>http://www.ifunan.cn/2020/02/22/%E9%9A%8F%E6%89%8B%E8%AE%B0/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/04/12/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Php/</loc>
+    <loc>http://www.ifunan.cn/2020/03/05/%E5%A4%A7%E6%95%B0%E6%8D%AE_Hadoop%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/03/05/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx/</loc>
+    <loc>http://www.ifunan.cn/2020/03/24/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Tomcat/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/04/17/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx+Tomcat/</loc>
+    <loc>http://www.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/03/19/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_NFS/</loc>
+    <loc>http://www.ifunan.cn/2020/04/12/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Php/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/03/10/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Mysql/</loc>
+    <loc>http://www.ifunan.cn/2020/03/05/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/04/22/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Ansible/</loc>
+    <loc>http://www.ifunan.cn/2020/04/17/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx+Tomcat/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/03/13/%E4%BA%91%E5%AD%98%E5%82%A8_openfiler/</loc>
+    <loc>http://www.ifunan.cn/2020/03/19/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_NFS/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/03/02/%E4%BA%91%E5%AD%98%E5%82%A8_LVM/</loc>
+    <loc>http://www.ifunan.cn/2020/03/10/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Mysql/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/04/19/%E4%BA%91%E5%AD%98%E5%82%A8_GlusterFS/</loc>
+    <loc>http://www.ifunan.cn/2020/04/22/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Ansible/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/04/26/%E4%BA%91%E5%AD%98%E5%82%A8_Ceph/</loc>
+    <loc>http://www.ifunan.cn/2020/03/13/%E4%BA%91%E5%AD%98%E5%82%A8_openfiler/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/02/11/onelog/</loc>
+    <loc>http://www.ifunan.cn/2020/03/02/%E4%BA%91%E5%AD%98%E5%82%A8_LVM/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/02/13/c%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0/</loc>
+    <loc>http://www.ifunan.cn/2020/04/19/%E4%BA%91%E5%AD%98%E5%82%A8_GlusterFS/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/2020/02/14/C%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0-%E6%95%B0%E7%BB%84/</loc>
+    <loc>http://www.ifunan.cn/2020/04/26/%E4%BA%91%E5%AD%98%E5%82%A8_Ceph/</loc>
     
     <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/link/index.html</loc>
+    <loc>http://www.ifunan.cn/2020/02/11/onelog/</loc>
     
-    <lastmod>2020-08-29</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.ifunan.cn/categories/index.html</loc>
-    
-    <lastmod>2020-08-29</lastmod>
+    <lastmod>2020-08-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/index.html</loc>
+    <loc>http://www.ifunan.cn/2020/02/13/c%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0/</loc>
+    
+    <lastmod>2020-08-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ifunan.cn/2020/02/14/C%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0-%E6%95%B0%E7%BB%84/</loc>
+    
+    <lastmod>2020-08-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ifunan.cn/link/index.html</loc>
     
     <lastmod>2020-08-29</lastmod>
     
@@ -157,7 +164,7 @@
   
 
   <url>
-    <loc>http://blog.ifunan.cn/</loc>
+    <loc>http://www.ifunan.cn/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -165,112 +172,112 @@
 
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/C%E8%AF%AD%E8%A8%80/</loc>
+    <loc>http://www.ifunan.cn/tags/C%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://www.ifunan.cn/tags/%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/GlusterFS/</loc>
+    <loc>http://www.ifunan.cn/tags/GlusterFS/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/Ceph/</loc>
+    <loc>http://www.ifunan.cn/tags/Ceph/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/</loc>
+    <loc>http://www.ifunan.cn/tags/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/Ansible/</loc>
+    <loc>http://www.ifunan.cn/tags/MySQL/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/Openfiler/</loc>
+    <loc>http://www.ifunan.cn/tags/Openfiler/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/NFS/</loc>
+    <loc>http://www.ifunan.cn/tags/Ansible/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/MySQL/</loc>
+    <loc>http://www.ifunan.cn/tags/NFS/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</loc>
+    <loc>http://www.ifunan.cn/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/Nginx/</loc>
+    <loc>http://www.ifunan.cn/tags/Nginx/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/php/</loc>
+    <loc>http://www.ifunan.cn/tags/php/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/Tomcat/</loc>
+    <loc>http://www.ifunan.cn/tags/Shell/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/Shell/</loc>
+    <loc>http://www.ifunan.cn/tags/Hadoop/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/%E9%9A%8F%E6%89%8B%E8%AE%B0/</loc>
+    <loc>http://www.ifunan.cn/tags/Tomcat/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/tags/Hadoop/</loc>
+    <loc>http://www.ifunan.cn/tags/%E9%9A%8F%E6%89%8B%E8%AE%B0/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -279,42 +286,42 @@
 
   
   <url>
-    <loc>http://blog.ifunan.cn/categories/C%E8%AF%AD%E8%A8%80/</loc>
+    <loc>http://www.ifunan.cn/categories/C%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/categories/Hexo/</loc>
+    <loc>http://www.ifunan.cn/categories/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/categories/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/</loc>
+    <loc>http://www.ifunan.cn/categories/Hexo/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/categories/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4/</loc>
+    <loc>http://www.ifunan.cn/categories/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/categories/Linux/</loc>
+    <loc>http://www.ifunan.cn/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.ifunan.cn/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://www.ifunan.cn/categories/Linux/</loc>
     <lastmod>2020-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

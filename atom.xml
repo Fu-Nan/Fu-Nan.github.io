@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>FuNan</title>
   <icon>https://www.gravatar.com/avatar/3f6a4005adc8f8749f606bc69cb330b6</icon>
   
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
+  <link href="http://blog.ifunan.cn/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://blog.ifunan.cn/"/>
   <updated>2020-08-29T08:57:41.847Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://blog.ifunan.cn/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>FuNan</name>
     <email>1186174184@qq.com</email>
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2020/08/29/hello-world/"/>
-    <id>http://yoursite.com/2020/08/29/hello-world/</id>
+    <link href="http://blog.ifunan.cn/2020/08/29/hello-world/"/>
+    <id>http://blog.ifunan.cn/2020/08/29/hello-world/</id>
     <published>2020-08-29T08:57:41.847Z</published>
     <updated>2020-08-29T08:57:41.847Z</updated>
     

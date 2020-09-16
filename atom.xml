@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2020-09-10T03:16:20.950Z</updated>
+  <updated>2020-09-16T16:11:35.650Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker常用操作</title>
+    <link href="http://www.ifunan.cn/2020/09/17/Docker_%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
+    <id>http://www.ifunan.cn/2020/09/17/Docker_%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-09-16T16:11:23.000Z</published>
+    <updated>2020-09-16T16:11:35.650Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Docker常用操作"><a href="#Docker常用操作" class="headerlink" title="Docker常用操作"></a>Docker常用操作</h1><ol><li>查询docker镜像<br><code>docker search choerodon/cibase</code><br>参数说明:<br>-s 10：列出收藏数不小于10的镜像<br>–no-trunc：显示完整镜像描述<br>–automated：只列出automated build类型的镜像<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/16/w2bnsS.jpg"><br>例2：查询nginx镜像<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/16/w2buqg.jpg"><blockquote><p>详解：</p></blockquote></li></ol><p><strong>NAME</strong>：镜像仓库源的名称<br><strong>DESCRIPTION</strong>：镜像的描述<br><strong>STARS</strong>：点赞、喜欢数(类似Github的star)<br><strong>AUTOMATED</strong>：是否支持自动构建</p><ol start="2"><li>下载镜像<br><code>docker pull choerodon/cibase</code><br>参数说明：</li></ol><p>-a：拉取所有目标镜像(即拉去含有名字的所有镜像)<br>–disable-content-trust：忽略镜像的校验,默认开启<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/16/w2bmM8.jpg"><br>3. 查看所有镜像<br><code>docker images</code><br>参数说明：<br>-a：列出本地所有镜像(包括中间映像层,默认是过滤掉的)<br>–digests：显示镜像摘要信息<br>–no-trunc：显示完整镜像信息<br>-q：只显示镜像ID<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/16/w2bVRP.jpg"></p><blockquote><p>详解：<br><strong>REPOSITORY</strong>：镜像名称<br><strong>TAG</strong>：镜像的标签<br><strong>IMAGE ID</strong>：镜像ID<br><strong>CREATED</strong>：镜像创建时间<br><strong>SIZE</strong>：镜像大小</p></blockquote><ol start="4"><li>创建并运行一个容器<br><code>docker run -tid choerodon/cibase:latest</code><br>参数说明：</li></ol><p>-d：后台运行并返回容器ID<br>-i：交互模式运行容器,通常与-t连用<br>-t：为容器重新分配一个伪输入终端,通常与-i连用<br>–name=”youName”：指定容器名称<br>-p：指定端口映射,格式：主机端口：容器端口<br>-v：建立本地路径到容器路径的映射，格式：/本地路径：/容器内路径<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/16/w2bEGt.jpg"><br>5. 查看正在运行的容器<br><code>docker ps -a</code><br>参数说明：<br>-a：显示所用容器，包括未运行的<br>-l：显示最近创建的容器<br>-n：列出最近创建的n个容器<br>-s：显示总的文件大小<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/16/w2bZxf.jpg"></p><blockquote><p>详解：<br><strong>CONTAINER ID</strong>：容器ID<br><strong>IMAGE</strong>：使用的镜像<br><strong>COMMAND</strong>：启动容器时运行的命令<br><strong>CREATED</strong>：容器创建时间<br><strong>PORTS</strong>: 容器的端口信息和使用的连接类型(tcp/udp)<br><strong>NAMES</strong>: 自动分配的容器名称<br><strong>STATUS</strong>：容器状态<br>有7种状态：<br>created（已创建）<br>restarting（重启中）<br>running（运行中）<br>removing（迁移中）<br>paused（暂停）<br>exited（停止）<br>dead（死亡）</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Docker常用操作&quot;&gt;&lt;a href=&quot;#Docker常用操作&quot; class=&quot;headerlink&quot; title=&quot;Docker常用操作&quot;&gt;&lt;/a&gt;Docker常用操作&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;查询docker镜像&lt;br&gt;&lt;code&gt;docker searc</summary>
+      
+    
+    
+    
+    <category term="Docker" scheme="http://www.ifunan.cn/categories/Docker/"/>
+    
+    
+    <category term="Docker" scheme="http://www.ifunan.cn/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker安装</title>
@@ -465,32 +490,6 @@
     
     
     <category term="C语言" scheme="http://www.ifunan.cn/categories/C%E8%AF%AD%E8%A8%80/"/>
-    
-    
-    <category term="笔记" scheme="http://www.ifunan.cn/tags/%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ONEBLOG</title>
-    <link href="http://www.ifunan.cn/2020/02/11/onelog/"/>
-    <id>http://www.ifunan.cn/2020/02/11/onelog/</id>
-    <published>2020-02-11T06:00:00.000Z</published>
-    <updated>2020-08-30T09:48:51.199Z</updated>
-    
-    <content type="html"><![CDATA[<p>2020/2/11日</p><h1 id="我的第一篇log"><a href="#我的第一篇log" class="headerlink" title="我的第一篇log"></a>我的第一篇log</h1><p>不知道写点儿啥，不如写写怎么用Hexo搭建的吧</p><h2 id="使用阿里云服务器CentOS-7搭建Hexo"><a href="#使用阿里云服务器CentOS-7搭建Hexo" class="headerlink" title="使用阿里云服务器CentOS 7搭建Hexo"></a>使用阿里云服务器CentOS 7搭建Hexo</h2><h3 id="首先安装自动补全和vim"><a href="#首先安装自动补全和vim" class="headerlink" title="首先安装自动补全和vim"></a>首先安装自动补全和vim</h3><p><code>yum install bash-completion vim -y</code></p><h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p><code>yum install git-core -y</code></p><h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p><code>curl -sL https://rpm.nodesource.com/setup_13.x | bash -</code>  此命令会提示缺少依赖的安装包</p><p>安装缺少依赖的安装包：</p><ol><li><code>sudo yum install -y nodejs</code></li><li><code>sudo yum install gcc-c++ make -y</code></li></ol><p><code>node -v</code>    查看Node.js版本</p><p><code>npm -v</code>    查看npm版本</p><h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p><code>npm install -g hexo-cli</code>    安装Hexo(WARN级别的提示可不用理会)</p><p><code>openssl version</code>    查看版本</p><p><code>yum update openssl -y</code>    更新版本</p><h3 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h3><ol><li><code>cd /</code>                    移动至根目录</li><li><code>hexo init cooper</code>        初始化生成博客文件夹（此处cooper为自定义文件夹名，可任意更改)</li><li><code>cd cooper</code>                进入生成的文件夹内进行下一步配置</li><li><code>npm install</code>            在文件夹内安装hexo扩展插件</li><li><code>hexo generate (hexo g)</code>    生成静态页面</li><li><code>hexo server (hexo s)</code>                开启本地服务器（此处等待10秒左右后使用Ctrl+C,再进行下边的配置)<blockquote><p>扩展知识：<code>hexo new “my new post</code>    Create a new post(新建帖子)<br><code>hexo deploy</code>Deploy to remote sites(部署到远程站点)</p></blockquote></li></ol><h3 id="配置Nginx服务"><a href="#配置Nginx服务" class="headerlink" title="配置Nginx服务"></a>配置Nginx服务</h3><ol><li><code>yum install nginx -y</code>        安装nginx</li><li><code>systemctl start nginx.service</code>    启动nginx服务</li><li><code>vi /etc/nginx/nginx.conf</code>        修改nginx配置;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">user root;&#x2F;&#x2F;修改为当前账户</span><br><span class="line">server &#123;</span><br><span class="line">listen   80 default_server;</span><br><span class="line">listen   [::]:80 default_server;</span><br><span class="line">server_name  localhost;</span><br><span class="line">        root &#x2F;cooper&#x2F;public;&#125;修改为生成hexo所在文件夹的public目录（此处需要注意，如果nginx找不到默认的3个主页面就会返回403，所以此处应该为public下的index.html才能成功）</span><br></pre></td></tr></table></figure></li><li><code>systemctl restart nginx.service</code>    重启nginx服务</li></ol><h3 id="错误及解决办法"><a href="#错误及解决办法" class="headerlink" title="错误及解决办法"></a>错误及解决办法</h3><p>安装主题后发布新文章提示<code>Error: Cannot find module &#39;cheerio&#39;</code>（仅Jerryc的主题）<br>解决办法：在博客根目录<code>npm install cheerio@0.22.0 -save</code>    安装cheerio</p><h2 id="主题页面"><a href="#主题页面" class="headerlink" title="主题页面"></a>主题页面</h2><h3 id="Page-Front-matter"><a href="#Page-Front-matter" class="headerlink" title="Page Front-matter"></a>Page Front-matter</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title:</span><br><span class="line">date:</span><br><span class="line">type: （tags,link,categories这三个页面需要配置）</span><br><span class="line">comments: (是否需要显示评论，默认true)</span><br><span class="line">description:</span><br><span class="line">top_img: (设置顶部图)</span><br><span class="line">mathjax:</span><br><span class="line">katex:</span><br><span class="line">---</span><br></pre></td></tr></table></figure><h3 id="Post-Front-matter"><a href="#Post-Front-matter" class="headerlink" title="Post Front-matter"></a>Post Front-matter</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title:</span><br><span class="line">date:</span><br><span class="line">tags:</span><br><span class="line">categories:</span><br><span class="line">keywords:</span><br><span class="line">description:</span><br><span class="line">top_img: (可忽略)</span><br><span class="line">comments: (是否显示评论,默认true，可忽略)</span><br><span class="line">cover: 缩略图</span><br><span class="line">toc: 是否显示toc(可忽略)</span><br><span class="line">toc_number: 是否显示toc数字(可忽略)</span><br><span class="line">copyright: 是否显示版权(可忽略)</span><br><span class="line">mathjax:</span><br><span class="line">katex:</span><br><span class="line">hide:</span><br><span class="line">---</span><br></pre></td></tr></table></figure><h2 id="友情链接"><a href="#友情链接" class="headerlink" title="友情链接"></a>友情链接</h2><p>本博客所应用的Butterfly主题教程(作者Jerryc): <a href="https://demo.jerryc.me/">https://demo.jerryc.me/</a></p><p>NEXT主题教程: <a href="http://theme-next.iissnan.com/">http://theme-next.iissnan.com/</a></p><p>Hexo官网上的更多网站主题模板: <a href="https://hexo.io/themes/">https://hexo.io/themes/</a></p><p>图床: <a href="https://imgchr.com/">https://imgchr.com/</a></p><p>七牛云对象存储(免费10G存储): <a href="https://sso.qiniu.com/">https://sso.qiniu.com/</a></p><p>Valine评论系统: <a href="https://leancloud.cn/">https://leancloud.cn/</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;2020/2/11日&lt;/p&gt;
-&lt;h1 id=&quot;我的第一篇log&quot;&gt;&lt;a href=&quot;#我的第一篇log&quot; class=&quot;headerlink&quot; title=&quot;我的第一篇log&quot;&gt;&lt;/a&gt;我的第一篇log&lt;/h1&gt;&lt;p&gt;不知道写点儿啥，不如写写怎么用Hexo搭建的吧&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="Hexo" scheme="http://www.ifunan.cn/categories/Hexo/"/>
     
     
     <category term="笔记" scheme="http://www.ifunan.cn/tags/%E7%AC%94%E8%AE%B0/"/>

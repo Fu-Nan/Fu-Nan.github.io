@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2020-09-24T06:55:04.707Z</updated>
+  <updated>2020-09-24T07:06:20.153Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Docker应用容器化</title>
+    <title>Docker(三)应用容器化</title>
     <link href="http://www.ifunan.cn/2020/09/24/Docker_%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
     <id>http://www.ifunan.cn/2020/09/24/Docker_%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96/</id>
     <published>2020-09-24T00:26:57.000Z</published>
-    <updated>2020-09-24T06:55:04.707Z</updated>
+    <updated>2020-09-24T07:06:20.153Z</updated>
     
     <content type="html"><![CDATA[<h1 id="应用容器化"><a href="#应用容器化" class="headerlink" title="应用容器化"></a>应用容器化</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li><p>安装Docker编排工具docker-compose(Harbor依赖该服务)<br><code>yum -y install epel-release.noarch</code><br><code>yum makecache fast</code><br><code>yum -y install docker-compose.noarch</code></p></li><li><p>解压harbor安装包(将包传至目录后再解压)<br><code>tar -zxvf harbor-offline-installer-v2.0.1.tgz</code></p></li><li><p>关闭防火墙和Selinux<br><code>systemctl stop firewalld.service</code><br><code>setenforce 0</code></p></li><li><p>关闭防火墙后需要重启docker，不然会报错<br><code>systemctl restart docker.service</code></p></li></ol><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol><li>进入目录<br><code>cd harbor/</code></li><li>备份主配置文件<br><code>cp harbor.yml.tmpl harbor.yml</code></li><li>进入配置文件(将文件里的<code>hostname</code>值修改为<code>hostname: 你的IP地址</code>)<br><code>vi harbor.yml</code></li><li>注释掉https相关的内容,全部配置如下图所示<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/23/wxdTSA.png"></li><li>保存修改后安装Harbor服务<br><code>./install.sh</code></li><li>查看Harbor的状态<br><code>docker-compose ps</code></li><li>在浏览器访问,<code>http://你的IP地址</code>,默认账号admin,密码Harbor12345<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/23/wxw7h4.png"></li></ol><h2 id="Harbor操作"><a href="#Harbor操作" class="headerlink" title="Harbor操作"></a>Harbor操作</h2><ol><li>进入网页后新建一个项目<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/23/wxB6Qs.png"></li><li>修改docker配置文件,添加以下内容(注意红圈处有一个逗号)<br><code>&quot;insecure-registries&quot;:[&quot;你的ip地址&quot;]</code><br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/24/0SSXP1.png"></li><li>重启docker<br><code>systemctl restart docker</code></li><li>登录自建的Harbor镜像仓库(账号密码为登录网页的密码)<br><code>docker login 你的IP地址</code></li><li>使用tag更改一个镜像<br><code>docker tag choerodon/cibase:latest 你的IP地址/刚才新建项目的名称/choerodon</code><blockquote><p>例子：<code>docker tag choerodon/cibase:latest 192.168.200.120/test/choerodon</code></p></blockquote></li><li>将镜像推送到仓库<br><code>docker push 你的IP地址/刚才新建项目的名称/choerodon</code><blockquote><p>例子：<code>docker push 192.168.200.120/test/choerodon</code></p></blockquote></li><li>下载镜像<br><code>docker pull 你的IP地址/刚才新建项目的名称/choerodon:latest</code><blockquote><p>例子：<code>docker pull 192.168.200.120/test/choerodon:latest</code></p></blockquote></li></ol>]]></content>
     

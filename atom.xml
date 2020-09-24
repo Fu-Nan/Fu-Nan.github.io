@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2020-09-17T00:46:47.740Z</updated>
+  <updated>2020-09-24T00:27:03.596Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker常用操作</title>
+    <link href="http://www.ifunan.cn/2020/09/24/Docker_%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
+    <id>http://www.ifunan.cn/2020/09/24/Docker_%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96/</id>
+    <published>2020-09-24T00:26:57.000Z</published>
+    <updated>2020-09-24T00:27:03.596Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="应用容器化"><a href="#应用容器化" class="headerlink" title="应用容器化"></a>应用容器化</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li><p>安装Docker编排工具docker-compose(Harbor依赖该服务)<br><code>yum -y install epel-release.noarch</code><br><code>yum makecache fast</code><br><code>yum -y install docker-compose.noarch</code></p></li><li><p>解压harbor安装包(将包传至目录后再解压)<br><code>tar -zxvf harbor-offline-installer-v2.0.1.tgz</code></p></li><li><p>关闭防火墙和Selinux<br><code>systemctl stop firewalld.service</code><br><code>setenforce 0</code></p></li><li><p>关闭防火墙后需要重启docker，不然会报错<br><code>systemctl restart docker.service</code></p></li></ol><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol><li>进入目录<br><code>cd harbor/</code></li><li>备份主配置文件<br><code>cp harbor.yml.tmpl harbor.yml</code></li><li>进入配置文件(将文件里的<code>hostname</code>值修改为<code>hostname: 你的IP地址</code>)<br><code>vi harbor.conf</code></li><li>注释掉https相关的内容,全部配置如下图所示<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/23/wxdTSA.png"></li><li>保存修改后安装Harbor服务<br><code>./install.sh</code></li><li>查看Harbor的状态<br><code>docker-compose ps</code></li><li>在浏览器访问,<code>http://你的IP地址</code>,默认账号admin,密码Harbor12345<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/23/wxw7h4.png"></li></ol><h2 id="Harbor操作"><a href="#Harbor操作" class="headerlink" title="Harbor操作"></a>Harbor操作</h2><ol><li>进入网页后新建一个项目<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/09/23/wxB6Qs.png"></li><li></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;应用容器化&quot;&gt;&lt;a href=&quot;#应用容器化&quot; class=&quot;headerlink&quot; title=&quot;应用容器化&quot;&gt;&lt;/a&gt;应用容器化&lt;/h1&gt;&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安</summary>
+      
+    
+    
+    
+    <category term="Docker" scheme="http://www.ifunan.cn/categories/Docker/"/>
+    
+    
+    <category term="Docker" scheme="http://www.ifunan.cn/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker常用操作</title>
@@ -468,30 +492,6 @@
     
     
     <category term="C语言" scheme="http://www.ifunan.cn/tags/C%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C语言【从入门到入土】</title>
-    <link href="http://www.ifunan.cn/2020/02/13/c%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0/"/>
-    <id>http://www.ifunan.cn/2020/02/13/c%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0/</id>
-    <published>2020-02-13T05:44:36.000Z</published>
-    <updated>2020-08-30T09:48:51.043Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C语言易错复习"><a href="#C语言易错复习" class="headerlink" title="C语言易错复习"></a>C语言易错复习</h1><h2 id="数据描述"><a href="#数据描述" class="headerlink" title="数据描述"></a>数据描述</h2><ul><li>C语言标识符区分大小写，即<code>int</code>和<code>Int</code>有区别</li><li><code>return 0;</code>通知操作系统程序正常结束（主要用于main函数最后一行）</li></ul><h2 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h2><ul><li>模<code>%</code>运算，结果取决于模左边(被除数)的符号<blockquote><p>eg:-2%3结果为-2；2%-3结果为2</p></blockquote></li><li><code>c=b*=a+2;</code> 等价于 <code>c=(b=b*(a+2));</code></li><li>强制类型转换：<code>float x;int i;i=(int)x;</code>    i的强制转换取值为整数部分</li><li>运算符:<strong>sizeof</strong>(类型标识符或表达式)，计算参数的长度，标识符参数为标识符大小，字符参数为字符串长度<blockquote><p>eg:sizeof(double)值为8；sizeof(“hello”)值为6</p></blockquote></li><li>输入数据流的分割<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char a;int b;</span><br><span class="line">scanf(&quot;%3c%3d&quot;,&amp;a,&amp;b);</span><br><span class="line">printf(&quot;%c,%d\n&quot;,a,b);</span><br></pre></td></tr></table></figure>在此段代码中（输入值为<code>ab12345</code>)，输入时a的取值为<code>ab1</code>,b的取值为<code>234</code>;则输出时a值为<code>&#39;a&#39;</code>，b值为<code>234</code><br>输入数据时可用空格、tab键、回车键来分割数据</li><li><code>%ld</code>中l表示输入长整型数据；<code>%lf</code>表示double型；<code>%*d</code>表示输入的数据在输入后不赋值给相应的变量<blockquote><p><code>%.1lf</code>表示double型数据，取值仅保留一位小数<br>double型默认为6为小数点（不含小数点位），默认不足的情况下以0补齐，超过的则按四舍五入截断</p></blockquote></li><li>条件运算符<code>?</code>,形式：<code>表达式1?表达式2:表达式3</code>(如果表达式1非0则计算表达式2,表达式2值为整个条件的值,否则计算表达式3)<blockquote><p>eg:<code>max=(a&gt;b)?a:b</code>计算两数间的最大值</p></blockquote></li></ul><h2 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h2><ul><li><p><code>switch</code>、<code>case</code>后边表达式为整形或字符型</p><blockquote><p>执行过程：switch与case后的表达式比较，如果相等则从该case开始往下执行；若没有，则从default开始往下执行</p></blockquote><p>当循环中嵌套switch时，switch中的break跳出的是switch而不是循环</p></li></ul><h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><ul><li>continue只能用于循环结构</li></ul><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ul><li>一维数组长度为常量表达式值，二维数组长度为两个常量表达式值的乘积（表达式可为整型常量、符号常量、只含常量的表达式)，二维数组先行后列<br>二维数值数组初始化形式：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a[][4]&#x3D;&#123;&#123;1,2,3,4&#125;,&#123;5,6&#125;&#125;;按行初始化</span><br><span class="line">int a[][4]&#x3D;&#123;&#123;1,2,3,4&#125;,&#123;5,6&#125;&#125;;</span><br><span class="line">int a[][4]&#x3D;&#123;&#123;1,2,3,4&#125;,&#123;5,6&#125;&#125;;按存储顺序初始化</span><br><span class="line">int a[2][4]&#x3D;&#123;1,2,3&#125;; 按存储顺序部分初始化</span><br></pre></td></tr></table></figure>二维字符数组初始化形式（字符数组初始化可用字符常量、ASCII码或字符串)：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char str[3][6]&#x3D;&#123;&quot;hello&quot;,&quot;red&quot;&#125;;使用单个字符初始化</span><br><span class="line">char str[5]&#x3D;&#123;114,101,100&#125;; 使用ASCII码值初始化</span><br><span class="line">char str[6]&#x3D;&#123;&quot;hello&quot;&#125;; 使用字符串初始化</span><br><span class="line">char str[3][6]&#x3D;&#123;&quot;hello&quot;,&quot;red&quot;&#125;;使用字符串二维数组初始化</span><br></pre></td></tr></table></figure></li><li>引用数组元素的三种方法：下标法、地址法、指针法</li><li>数组名作为函数参数时，在主调函数和被调函数中需分别定义实参数组和形参数组，参数传递时，是将实参数组的起始地址传给形参数组</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;C语言易错复习&quot;&gt;&lt;a href=&quot;#C语言易错复习&quot; class=&quot;headerlink&quot; title=&quot;C语言易错复习&quot;&gt;&lt;/a&gt;C语言易错复习&lt;/h1&gt;&lt;h2 id=&quot;数据描述&quot;&gt;&lt;a href=&quot;#数据描述&quot; class=&quot;headerlink&quot; titl</summary>
-      
-    
-    
-    
-    <category term="C语言" scheme="http://www.ifunan.cn/categories/C%E8%AF%AD%E8%A8%80/"/>
-    
-    
-    <category term="笔记" scheme="http://www.ifunan.cn/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   

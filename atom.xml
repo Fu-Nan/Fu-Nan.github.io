@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2020-09-24T07:06:20.153Z</updated>
+  <updated>2020-10-05T14:08:04.796Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker容器存储和网络基础</title>
+    <link href="http://www.ifunan.cn/2020/10/05/Docker_%E5%AE%B9%E5%99%A8%E5%AD%98%E5%82%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"/>
+    <id>http://www.ifunan.cn/2020/10/05/Docker_%E5%AE%B9%E5%99%A8%E5%AD%98%E5%82%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</id>
+    <published>2020-10-05T14:07:59.000Z</published>
+    <updated>2020-10-05T14:08:04.796Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="容器存储和网络基础"><a href="#容器存储和网络基础" class="headerlink" title="容器存储和网络基础"></a>容器存储和网络基础</h1><h2 id="开启Harbor"><a href="#开启Harbor" class="headerlink" title="开启Harbor"></a>开启Harbor</h2><ol><li>虚拟机重启后需要手动开启Harbor,并重启docker生效<br><code>docker-compose start</code><br><code>systemctl restart docker.service</code></li><li>或者可以设置Harbor为开机自启动<br><code>vim harbor.service </code>在文件中添加以下内容：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Redis</span><br><span class="line">After&#x3D;network.target</span><br><span class="line">[Service]</span><br><span class="line">ExecStart&#x3D; &#x2F;usr&#x2F;bin&#x2F;docker-compose start</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure></li></ol><h2 id="Docker-compose部署GitLab"><a href="#Docker-compose部署GitLab" class="headerlink" title="Docker-compose部署GitLab"></a>Docker-compose部署GitLab</h2><ol><li>新建gitlab安装目录<br><code>mkdir /usr/local/gitlab/</code><br><code>cd /usr/local/gitlab/</code></li><li>新建配置文件<br><code>vi docker-compose.yml</code>并添加以下内容(注意IP改为你的IP和配置项的缩进格式)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3&#39;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: &#39;twang2218&#x2F;gitlab-ce-zh&#39;</span><br><span class="line">    restart: always</span><br><span class="line">    hostname: &#39;192.168.200.120&#39;</span><br><span class="line">    environment:</span><br><span class="line">      TZ: &#39;Asia&#x2F;Shanghai&#39;</span><br><span class="line">      GITLAB_OMNIBUS_CONFIG: |</span><br><span class="line">        external_url &#39;http:&#x2F;&#x2F;192.168.200.120&#39;</span><br><span class="line">        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] &#x3D; 2222</span><br><span class="line">        unicorn[&#39;port&#39;] &#x3D; 8888</span><br><span class="line">        nginx[&#39;listen_port&#39;] &#x3D; 80</span><br><span class="line">    ports:</span><br><span class="line">      - &#39;80:80&#39;          </span><br><span class="line">      - &#39;443:443&#39;          </span><br><span class="line">      - &#39;2222:22&#39;          </span><br><span class="line">    volumes:    </span><br><span class="line">      - .&#x2F;config:&#x2F;etc&#x2F;gitlab</span><br><span class="line">      - .&#x2F;data:&#x2F;var&#x2F;opt&#x2F;gitlab</span><br><span class="line">      - .&#x2F;logs:&#x2F;var&#x2F;log&#x2F;gitlab</span><br></pre></td></tr></table></figure><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tM8OJ.png"></li><li>创建gitlab所需使用的相关目录(此步骤可忽略，也可将上边配置文件的volumes选项修改为此路径)<br><code>mkdir /opt/gitlab/&#123;config,data,logs&#125; -p</code></li><li>拉取gitlab中文版镜像<br><code>docker pull twang2218/gitlab-ce-zh</code></li><li>查看镜像是否拉取成功<br><code>docker images</code></li><li>启动gitlab的容器<br><code>docker-compose up -d</code></li><li>查看容器是否正常运行<br><code>docker ps -a</code><br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMmoq.png"></li><li>设置gitlab开机启动(第二句echo需设置成你自己的安装目录下)<br><code>chmod +x /etc/rc.local</code><br><code>echo &quot;cd /usr/local/gitlab &amp;&amp; docker-compose up -d&quot; &gt;&gt; /etc/rc.local</code></li></ol><h2 id="GitLab相关操作"><a href="#GitLab相关操作" class="headerlink" title="GitLab相关操作"></a>GitLab相关操作</h2><h3 id="GitLab创建项目"><a href="#GitLab创建项目" class="headerlink" title="GitLab创建项目"></a>GitLab创建项目</h3><ol><li>浏览器输入IP地址,第一次访问需设置密码(账户名：root)<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMuF0.png"></li><li>新建一个项目,项目名称随意填写，设置好后点击<code>create project</code>创建项目<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tM1lF.png"><br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMKYV.png"></li><li>创建好项目后如下图所示，点击按钮复制项目ssh地址，之后会用到<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMlSU.png"></li></ol><h3 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h3><ol><li>在Linux中生成密钥<br><code>ssh-keygen</code></li><li>进入文件复制ssh密钥<br><code>vim /root/.ssh/id_rsa.pub</code></li><li>回到浏览器点击右边的头像——设置<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tM3y4.png"></li><li>将复制的密钥添加到gitlab中,点击<code>Add key</code>添加密钥<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMJm9.png"></li></ol><h3 id="Git上传代码到Gitlab仓库"><a href="#Git上传代码到Gitlab仓库" class="headerlink" title="Git上传代码到Gitlab仓库"></a>Git上传代码到Gitlab仓库</h3><ol><li>移动到任意一个目录下，克隆远程仓库到本地,仓库地址为上边复制过的SSH地址<br><code>cd /root</code><br><code>git clone 你的仓库地址</code><br><code>cd 仓库名称</code></li><li>上传代码到GitLab(操作与Windows里上传到Github操作一样),以下操作省略详细步骤<br><code>git add .</code><br><code>git commit -m &quot;1.0.0&quot;</code><br><code>git push origin master</code></li><li>推送代码后再次查看浏览器上的GitLab仓库,可看见上传成功的结果</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;容器存储和网络基础&quot;&gt;&lt;a href=&quot;#容器存储和网络基础&quot; class=&quot;headerlink&quot; title=&quot;容器存储和网络基础&quot;&gt;&lt;/a&gt;容器存储和网络基础&lt;/h1&gt;&lt;h2 id=&quot;开启Harbor&quot;&gt;&lt;a href=&quot;#开启Harbor&quot; class=&quot;</summary>
+      
+    
+    
+    
+    <category term="Docker" scheme="http://www.ifunan.cn/categories/Docker/"/>
+    
+    
+    <category term="Docker" scheme="http://www.ifunan.cn/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker(三)应用容器化</title>
@@ -468,30 +492,6 @@
     
     
     <category term="随手记" scheme="http://www.ifunan.cn/tags/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C语言复习—字符数组</title>
-    <link href="http://www.ifunan.cn/2020/02/14/C%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0-%E6%95%B0%E7%BB%84/"/>
-    <id>http://www.ifunan.cn/2020/02/14/C%E8%AF%AD%E8%A8%80%E5%A4%8D%E4%B9%A0-%E6%95%B0%E7%BB%84/</id>
-    <published>2020-02-14T08:54:00.000Z</published>
-    <updated>2020-08-30T09:48:50.969Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C语言复习—字符数组"><a href="#C语言复习—字符数组" class="headerlink" title="C语言复习—字符数组"></a>C语言复习—字符数组</h1><p>数组名代表数组的起始地址，所以在使用<code>scanf</code>输入数组时可不用加<code>&amp;</code></p><ol><li><p><code>scanf</code>不能输入带空格的字符串</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char str[8];</span><br><span class="line">scanf(&quot;%s&quot;,str);</span><br></pre></td></tr></table></figure></li><li><p><code>printf</code>输出一个或多个字符串时，输出项用数组名或数组元素的地址，直到遇见字符串结束标志<code>&#39;\0&#39;</code>才会结束输出</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char str[13]&#x3D;&quot;c &amp; Computer&quot;;</span><br><span class="line">printf(&quot;%s\n%s\n&quot;,str,&amp;str[4]);</span><br><span class="line">输出结果为:c &amp; Computer</span><br><span class="line">Computer</span><br></pre></td></tr></table></figure></li><li><p><code>gets</code>函数输入字符串时，可包含空格，自动将回车转换为结束标志<code>&#39;\0&#39;</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char str[13];</span><br><span class="line">gets(str);</span><br></pre></td></tr></table></figure><p>如果输入为:<code>C &amp; Computer[回车]</code>,则将字符串<code>C &amp; Computer</code>和<code>&#39;\0&#39;</code>存入str中(此处的<code>\0</code>是将回车转换为<code>\0</code>）</p></li><li><p><code>puts</code>函数输出字符串时，自动将字符串结束标志<code>&#39;\0&#39;</code>转换为回车换行符</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char str[16]&#x3D;&quot;Chine\nChongQing&quot;;</span><br><span class="line">puts(str);</span><br><span class="line">输出结果为:China</span><br><span class="line">ChongQing</span><br></pre></td></tr></table></figure></li></ol><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>使用<code>scanf</code>输入字符串时，不能输入空格<br>使用<code>gets</code>输入字符串时，可以包含空格，且<code>gets</code>会自动将回车转换为<code>&#39;\0&#39;</code><br>使用<code>printf</code>输出字符串时，输出项可用数组名或数组元素的地址(&amp;str[4])，遇见<code>&#39;\0&#39;</code>则停止输出<br>使用<code>puts</code>输出字符串时，自动将<code>&#39;\0&#39;</code>转换为回车符</p><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ul><li>统计单词个数</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line">#define N 81</span><br><span class="line">int WordNum(char str[])</span><br><span class="line">&#123;</span><br><span class="line">int word&#x3D;0,num&#x3D;0,i;</span><br><span class="line">for(i&#x3D;0;str[i]!&#x3D;&#39;\0&#39;;i++)</span><br><span class="line">&#123;</span><br><span class="line">if(str[i]&#x3D;&#x3D;&#39; &#39;)</span><br><span class="line">word&#x3D;0;</span><br><span class="line">else if(word&#x3D;&#x3D;0)</span><br><span class="line">&#123;</span><br><span class="line">word&#x3D;1;</span><br><span class="line">num++;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return num;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">char str[N];</span><br><span class="line">int num;</span><br><span class="line">printf(&quot;输入一行字符:\n&quot;);</span><br><span class="line">gets(str);</span><br><span class="line">num&#x3D;WordNum(str);</span><br><span class="line">printf(&quot;单词个数为:%d&quot;,num);</span><br><span class="line">getchar();</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;C语言复习—字符数组&quot;&gt;&lt;a href=&quot;#C语言复习—字符数组&quot; class=&quot;headerlink&quot; title=&quot;C语言复习—字符数组&quot;&gt;&lt;/a&gt;C语言复习—字符数组&lt;/h1&gt;&lt;p&gt;数组名代表数组的起始地址，所以在使用&lt;code&gt;scanf&lt;/code&gt;输入</summary>
-      
-    
-    
-    
-    <category term="C语言" scheme="http://www.ifunan.cn/categories/C%E8%AF%AD%E8%A8%80/"/>
-    
-    
-    <category term="C语言" scheme="http://www.ifunan.cn/tags/C%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   

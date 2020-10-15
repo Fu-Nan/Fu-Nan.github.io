@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ceph分布式存储系统搭建 | FuNan</title><meta name="description" content="Ceph分布式存储系统搭建实验环境：    主机名 CPU核心 系统磁盘 IP地址（NAT） 系统    ceph01 1*2 40GB 192.168.200.20 CentOS 7   ceph02 1*2 40GB 192.168.200.30 CentOS 7   ceph03 1*2 40GB 192.168.200.40 CentOS 7    注：以下操作须在不同server上进行，"><meta name="keywords" content="Ceph"><meta name="author" content="FuNan,1186174184@qq.com"><meta name="copyright" content="FuNan"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://www.ifunan.cn/posts/a0556a43/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Ceph分布式存储系统搭建"><meta property="og:url" content="http://www.ifunan.cn/posts/a0556a43/"><meta property="og:site_name" content="FuNan"><meta property="og:description" content="Ceph分布式存储系统搭建实验环境：    主机名 CPU核心 系统磁盘 IP地址（NAT） 系统    ceph01 1*2 40GB 192.168.200.20 CentOS 7   ceph02 1*2 40GB 192.168.200.30 CentOS 7   ceph03 1*2 40GB 192.168.200.40 CentOS 7    注：以下操作须在不同server上进行，"><meta property="og:image" content="https://s2.ax1x.com/2020/03/02/3RqqD1.png"><meta property="article:published_time" content="2020-04-26T04:35:55.000Z"><meta property="article:modified_time" content="2020-08-30T09:48:51.309Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = '1'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-08-30 17:48:51'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="FuNan" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">25</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ceph%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BA"><span class="toc-text">Ceph分布式存储系统搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph01-amp-ceph02-amp-ceph03"><span class="toc-text">ceph01 &amp; ceph02 &amp; ceph03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph01"><span class="toc-text">ceph01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph02-amp-ceph03"><span class="toc-text">ceph02 &amp; ceph03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph01-1"><span class="toc-text">ceph01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph01-amp-ceph02-amp-ceph03-1"><span class="toc-text">ceph01 &amp; ceph02 &amp; ceph03</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AECeph"><span class="toc-text">安装配置Ceph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph01-2"><span class="toc-text">ceph01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph02"><span class="toc-text">ceph02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph03"><span class="toc-text">ceph03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph01-3"><span class="toc-text">ceph01</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ceph%E8%BF%90%E7%BB%B4%E6%93%8D%E4%BD%9C"><span class="toc-text">Ceph运维操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ceph01-amp-ceph02-amp-ceph03-2"><span class="toc-text">ceph01 &amp; ceph02 &amp; ceph03</span></a></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://s2.ax1x.com/2020/02/22/3QNb4g.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">FuNan</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Ceph分布式存储系统搭建</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-26T04:35:55.000Z" title="发表于 2020-04-26 12:35:55">2020-04-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-30T09:48:51.309Z" title="更新于 2020-08-30 17:48:51">2020-08-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/">云存储技术</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Ceph分布式存储系统搭建"><a href="#Ceph分布式存储系统搭建" class="headerlink" title="Ceph分布式存储系统搭建"></a>Ceph分布式存储系统搭建</h1><p>实验环境：</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">CPU核心</th>
+<th align="center">系统磁盘</th>
+<th align="center">IP地址（NAT）</th>
+<th align="center">系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ceph01</td>
+<td align="center">1*2</td>
+<td align="center">40GB</td>
+<td align="center">192.168.200.20</td>
+<td align="center">CentOS 7</td>
+</tr>
+<tr>
+<td align="center">ceph02</td>
+<td align="center">1*2</td>
+<td align="center">40GB</td>
+<td align="center">192.168.200.30</td>
+<td align="center">CentOS 7</td>
+</tr>
+<tr>
+<td align="center">ceph03</td>
+<td align="center">1*2</td>
+<td align="center">40GB</td>
+<td align="center">192.168.200.40</td>
+<td align="center">CentOS 7</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注：以下操作须在不同server上进行，请看清后再行操作</p>
+</blockquote>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="ceph01-amp-ceph02-amp-ceph03"><a href="#ceph01-amp-ceph02-amp-ceph03" class="headerlink" title="ceph01 &amp; ceph02 &amp; ceph03"></a>ceph01 &amp; ceph02 &amp; ceph03</h3><ol>
+<li>配置IP到主机名映射<br><code>[root@ceph01]# echo &quot;192.168.200.20 ceph01&quot; &gt;&gt; /etc/hosts</code><br><code>[root@ceph01]# echo &quot;192.168.200.30 ceph02&quot; &gt;&gt; /etc/hosts</code><br><code>[root@ceph01]# echo &quot;192.168.200.40 ceph03&quot; &gt;&gt; /etc/hosts</code></li>
+<li>关闭SELinux<br><code>[root@ceph01]# sed -i &#39;s/SELINUX=.*/SELINUX=disabled/g&#39; /etc/selinux/config</code><br><code>[root@ceph01]# setenforce 0</code><br><code>[root@ceph01]# getenforce</code></li>
+<li>关闭防火墙<br><code>[root@ceph01]# iptables -F</code><br><code>[root@ceph01]# iptables -X</code><br><code>[root@ceph01]# iptables -Z</code><br><code>[root@ceph01]# systemctl stop firewalld</code><br><code>[root@ceph01]# systemctl disable firewalld.service</code><blockquote>
+<p>请在ceph02和ceph03上重复以上操作</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="ceph01"><a href="#ceph01" class="headerlink" title="ceph01"></a>ceph01</h3><p>1.设置SSH无密码登录ceph02和ceph03<br><code>[root@ceph01]# ssh-keygen</code><br><code>[root@ceph01]# ssh-copy-id -i /root/.ssh/id_rsa.pub root@ceph02</code><br><code>[root@ceph01]# ssh-copy-id -i /root/.ssh/id_rsa.pub root@ceph03</code><br>2. 安装时钟同步<br><code>[root@ceph01]# yum install ntp ntpdate -y</code><br>3. 配置ntp,注释掉其他ntp服务器,设置为本机提供时钟同步<br><code>[root@ceph01]# vi /etc/ntp.conf</code><br>添加以下两行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server 127.127.1.0</span><br><span class="line">fudge 127.127.1.0 stratum 10</span><br></pre></td></tr></table></figure>
+<p><code>[root@ceph01]# systemctl start ntpd.service</code><br><code>[root@ceph01]# systemctl enable ntpd.service</code></p>
+<h3 id="ceph02-amp-ceph03"><a href="#ceph02-amp-ceph03" class="headerlink" title="ceph02 &amp; ceph03"></a>ceph02 &amp; ceph03</h3><ol>
+<li>同步为ceph01的时间<br><code>[root@ceph02]# yum install ntp ntpdate -y</code><br><code>[root@ceph02]# ntpdate 192.168.200.20</code><br><code>[root@ceph02]# systemctl enable ntpd.service</code><br><code>[root@ceph02]# systemctl status ntpd.service</code><blockquote>
+<p>ceph03重复以上操作</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="ceph01-1"><a href="#ceph01-1" class="headerlink" title="ceph01"></a>ceph01</h3><ol>
+<li>安装FTP<br><code>[root@ceph01]# yum install vsftpd -y</code></li>
+<li>设置FTP匿名访问的路径<br><code>[root@ceph01]# echo &quot;anon_root=/files/&quot; &gt;&gt; /etc/vsftpd/vsftpd.conf</code><br><code>[root@ceph01]# systemctl restart vsftpd</code><br><code>[root@ceph01]# systemctl enable vsftpd</code></li>
+<li>配置yum源（设置光驱连接到虚拟机中）<br><code>[root@ceph01]# mkdir -p /files/centos</code><br><code>[root@ceph01]# mount /dev/cdrom /mnt</code><br><code>[root@ceph01]# cp -rfv /mnt/* /files/centos</code><br><code>[root@ceph01]# umount /mnt</code><br>更换XianDian-IaaS-v2.0-20170420.iso到光驱中<br><code>[root@ceph01]# mount /dev/cdrom /mnt</code><br><code>[root@ceph01]# cp -rfv /mnt/* /files</code><br><code>[root@ceph01]# umount /mnt</code></li>
+<li>安装python包<br><code>[root@ceph01]# rpm -ivh /files/iaas-repo/base/python-backports-1.0-8.el7.x86_64.rpm</code><br><code>[root@ceph01]# rpm -ivh /files/iaas-repo/base/python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch.rpm</code><br><code>[root@ceph01]# rpm -ivh /files/iaas-repo/base/python-setuptools-0.9.8-4.el7.noarch.rpm</code></li>
+</ol>
+<h3 id="ceph01-amp-ceph02-amp-ceph03-1"><a href="#ceph01-amp-ceph02-amp-ceph03-1" class="headerlink" title="ceph01 &amp; ceph02 &amp; ceph03"></a>ceph01 &amp; ceph02 &amp; ceph03</h3><p><code>[root@ceph01]# cd /etc/yum.repos.d</code><br><code>[root@ceph01]# mkdir backup</code><br><code>[root@ceph01]# mv C* backup/</code><br><code>[root@ceph01]# vi local.repo</code><br>添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[centos]</span><br><span class="line">name&#x3D;centos</span><br><span class="line">baseurl&#x3D;ftp:&#x2F;&#x2F;192.168.200.20&#x2F;centos</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enable&#x3D;1</span><br><span class="line">[iaas]</span><br><span class="line">name&#x3D;iaas</span><br><span class="line">baseurl&#x3D;ftp:&#x2F;&#x2F;192.168.200.20&#x2F;iaas-repo</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enable&#x3D;1</span><br></pre></td></tr></table></figure>
+<p><code>[root@ceph01]# yum clean all</code><br><code>[root@ceph01]# yum repolist</code></p>
+<h2 id="安装配置Ceph"><a href="#安装配置Ceph" class="headerlink" title="安装配置Ceph"></a>安装配置Ceph</h2><h3 id="ceph01-2"><a href="#ceph01-2" class="headerlink" title="ceph01"></a>ceph01</h3><ol>
+<li>安装Ceph<br><code>[root@ceph01]# yum install ceph-deploy -y</code><br><code>[root@ceph01]# mkdir /etc/ceph</code><br><code>[root@ceph01]# cd /etc/ceph</code></li>
+<li>创建新的集群<br><code>[root@ceph01]# ceph-deploy new ceph01</code></li>
+<li>所有节点安装Ceph<br><code>[root@ceph01]# ceph-deploy install ceph01 ceph02 ceph03</code></li>
+<li>检查Ceph版本<br><code>[root@ceph01]# ceph -v</code></li>
+<li>创建第一个Ceph monitor<br><code>[root@ceph01]# ceph-deploy --overwrite-conf mon create-initial</code></li>
+<li>查看集群状态<br><code>[root@ceph01]# ceph -s</code></li>
+<li>检查ceph01上可用磁盘<br><code>[root@ceph01]# ceph-deploy disk list ceph01</code></li>
+<li>创建OSD所用目录并设置权限<br><code>[root@ceph01]# mkdir -p /opt/osd1</code><br><code>[root@ceph01]# chmod 777 /opt/osd1</code></li>
+</ol>
+<h3 id="ceph02"><a href="#ceph02" class="headerlink" title="ceph02"></a>ceph02</h3><p><code>[root@ceph01]# mkdir -p /opt/osd2</code><br><code>[root@ceph01]# chmod 777 /opt/osd2</code></p>
+<h3 id="ceph03"><a href="#ceph03" class="headerlink" title="ceph03"></a>ceph03</h3><p><code>[root@ceph01]# mkdir -p /opt/osd3</code><br><code>[root@ceph01]# chmod 777 /opt/osd3</code></p>
+<h3 id="ceph01-3"><a href="#ceph01-3" class="headerlink" title="ceph01"></a>ceph01</h3><ol>
+<li><p>创建OSD节点<br><code>[root@ceph01]# ceph-deploy osd prepare ceph01:/opt/osd1 ceph02:/opt/osd2 ceph03:/opt/osd3</code></p>
+</li>
+<li><p>激活OSD节点<br><code>[root@ceph01]# ceph-deploy osd activate  ceph01:/opt/osd1 ceph02:/opt/osd2 ceph03:/opt/osd3</code></p>
+</li>
+<li><p>检查集群状态<br><code>[root@ceph01]# ceph -s</code></p>
+<blockquote>
+<p>health(健康)显示：OK则为成功<br>cluster 147354a2-e174-4ea6-8464-58f1839fbd2f<br>health HEALTH_OK<br>monmap e1: 1 mons at {ceph-node1=192.168.200.211:6789/0}<br>election epoch 2, quorum 0 ceph-node1<br>osdmap e13: 3 osds: 3 up, 3 in<br>pgmap v19: 64 pgs, 1 pools, 0 bytes data, 0 objects<br>25907 MB used, 55365 MB / 81272 MB avail<br>64 active+clean</p>
+</blockquote>
+</li>
+<li><p>开放权限给其他节点，进行灾备处理<br><code>[root@ceph01]# ceph-deploy admin ceph-node&#123;1,2,3&#125;</code><br><code>[root@ceph01]# chmod +r /etc/ceph/ceph.client.admin.keyring</code></p>
+</li>
+</ol>
+<h2 id="Ceph运维操作"><a href="#Ceph运维操作" class="headerlink" title="Ceph运维操作"></a>Ceph运维操作</h2><h3 id="ceph01-amp-ceph02-amp-ceph03-2"><a href="#ceph01-amp-ceph02-amp-ceph03-2" class="headerlink" title="ceph01 &amp; ceph02 &amp; ceph03"></a>ceph01 &amp; ceph02 &amp; ceph03</h3><ol>
+<li>检查ceph的安装状态<br><code>[root@ceph01]# ceph status</code></li>
+<li>观察集群的健康状况<br><code>[root@ceph01]# ceph -w</code></li>
+<li>检查ceph monitor仲裁状态<br><code>[root@ceph01]# ceph quorum_status --format json-pretty</code></li>
+<li>导出monitor信息<br><code>[root@ceph01]# ceph mon dump</code></li>
+<li>检查集群使用状态<br><code>[root@ceph01]# ceph df</code></li>
+<li>检查ceph monitor、osd、PG状态<br><code>[root@ceph01]# ceph mon stat</code><br><code>[root@ceph01]# ceph osd stat</code><br><code>[root@ceph01]# ceph pg stat</code></li>
+<li>列表pg，导出pg<br><code>[root@ceph01]# ceph pg dump</code></li>
+<li>ceph 存储池列表<br><code>[root@ceph01]# ceph osd lspools</code></li>
+<li>检查osd的crush<br><code>[root@ceph01]# ceph osd tree</code></li>
+<li>列表集群的认证密钥<br><code>[root@ceph01]# ceph auth list</code></li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1186174184@qq.com">FuNan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.ifunan.cn/posts/a0556a43/">http://www.ifunan.cn/posts/a0556a43/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.ifunan.cn" target="_blank">FuNan</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ceph/">Ceph</a></div><div class="post_share"><div class="social-share" data-image="https://s2.ax1x.com/2020/03/02/3RqqD1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://s1.ax1x.com/2020/08/29/dTYplQ.th.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://s1.ax1x.com/2020/08/29/dTYplQ.th.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://s1.ax1x.com/2020/08/29/dTYkT0.th.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="https://s1.ax1x.com/2020/08/29/dTYkT0.th.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/b707d6e0/"><img class="prev-cover" data-lazy-src="https://s1.ax1x.com/2020/05/21/YHqv7j.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Shell通配符</div></div></a></div><div class="next-post pull-right"><a href="/posts/bfa5a896/"><img class="next-cover" data-lazy-src="https://s1.ax1x.com/2020/04/22/JYZrgP.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ansible安装配置</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By FuNan</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"/><span>渝ICP备19012495号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: '5DqGP7a9pxo0qN1aMDmcLECK-gzGzoHsz',
+      appKey: 'HC3xc6E4z6O7fPW5enPcgLjU',
+      placeholder: '随便写点儿啥...',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="aplayer no-destroy" data-id="5251994344" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  'meta[name=description]',
+  '#config_change',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+const pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+})
+
+document.addEventListener('pjax:complete', function () {
+  refreshFn()
+
+  $('script[data-pjax]').each(function () {
+    $(this).parent().append($(this).remove())
+  })
+
+  GLOBAL_CONFIG.islazyload && lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+})
+
+document.addEventListener('pjax:send', function () {
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  $(window).off('scroll')
+
+  //reset readmode
+  $('body').hasClass('read-mode') && $('body').removeClass('read-mode')
+
+  //reset font-size
+  $('body').css('font-size') !== originFontSize && $('body').css('font-size', parseFloat(originFontSize))
+})</script></div></body></html>

@@ -18,8 +18,8 @@
   
   <entry>
     <title>Docker(五)容器相关技术</title>
-    <link href="http://www.ifunan.cn/2020/10/14/Docker_%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF/"/>
-    <id>http://www.ifunan.cn/2020/10/14/Docker_%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-10-14T15:46:42.000Z</published>
     <updated>2020-10-14T15:46:48.141Z</updated>
     
@@ -42,12 +42,12 @@
   
   <entry>
     <title>Docker(四)容器存储和网络基础(新建虚拟机版)</title>
-    <link href="http://www.ifunan.cn/2020/10/05/Docker_%E5%AE%B9%E5%99%A8%E5%AD%98%E5%82%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%8002/"/>
-    <id>http://www.ifunan.cn/2020/10/05/Docker_%E5%AE%B9%E5%99%A8%E5%AD%98%E5%82%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%8002/</id>
+    <link href="http://www.ifunan.cn/posts/924dfae8/"/>
+    <id>http://www.ifunan.cn/posts/924dfae8/</id>
     <published>2020-10-05T14:17:59.000Z</published>
-    <updated>2020-10-15T07:03:35.141Z</updated>
+    <updated>2020-10-15T07:31:53.393Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="容器存储和网络基础-新建虚拟机版"><a href="#容器存储和网络基础-新建虚拟机版" class="headerlink" title="容器存储和网络基础(新建虚拟机版)"></a>容器存储和网络基础(新建虚拟机版)</h1><h2 id="实验准备"><a href="#实验准备" class="headerlink" title="实验准备"></a>实验准备</h2><p>两种方法：<br>方法一： 一台全新的虚拟机，并完成<a href="http://www.ifunan.cn/2020/09/10/Docker_%E5%AE%89%E8%A3%85/">Docker(一)安装</a><br>方法二： 如果有项目一的快照，则不需要新建虚拟机,克隆快照后修改IP地址即可</p><p>克隆快照方法：</p><ol><li>打开快照编辑器，选择快照并开始克隆<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLXUU.png"></li><li>进入后选择需要克隆的快照<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLj5F.png"></li><li>选择链接克隆<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLOET.png"></li><li>指定克隆后的虚拟机名称以及克隆虚拟机的存储位置，完成克隆<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLqbV.png"></li><li>克隆完成后进入<strong>修改IP地址</strong></li></ol><h2 id="关闭防火墙及SeLinux"><a href="#关闭防火墙及SeLinux" class="headerlink" title="关闭防火墙及SeLinux"></a>关闭防火墙及SeLinux</h2><ol><li>关闭SELinux<br><code>sed -i &#39;s/SELINUX=.*/SELINUX=disabled/g&#39; /etc/selinux/config</code><br><code>setenforce 0</code></li><li>关闭防火墙及防火墙的开机自启动<br><code>systemctl stop firewalld.service</code><br><code>systemctl disable firewalld.service</code></li></ol><h2 id="Docker-compose编排工具"><a href="#Docker-compose编排工具" class="headerlink" title="Docker-compose编排工具"></a>Docker-compose编排工具</h2><ol><li>安装Docker编排工具docker-compose(Harbor依赖该服务)<br><code>yum -y install epel-release.noarch</code><br><code>yum makecache fast</code><br><code>yum -y install docker-compose.noarch</code></li></ol><h2 id="Docker-compose部署GitLab"><a href="#Docker-compose部署GitLab" class="headerlink" title="Docker-compose部署GitLab"></a>Docker-compose部署GitLab</h2><ol><li>新建gitlab安装目录<br><code>mkdir /usr/local/gitlab/</code><br><code>cd /usr/local/gitlab/</code></li><li>新建配置文件<br><code>vi docker-compose.yml</code>并添加以下内容(注意IP改为你的IP和配置项的缩进格式)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3&#39;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: &#39;twang2218&#x2F;gitlab-ce-zh&#39;</span><br><span class="line">    restart: always</span><br><span class="line">    hostname: &#39;IP地址&#39;</span><br><span class="line">    environment:</span><br><span class="line">      TZ: &#39;Asia&#x2F;Shanghai&#39;</span><br><span class="line">      GITLAB_OMNIBUS_CONFIG: |</span><br><span class="line">        external_url &#39;http:&#x2F;&#x2F;IP地址&#39;</span><br><span class="line">        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] &#x3D; 2222</span><br><span class="line">        unicorn[&#39;port&#39;] &#x3D; 8888</span><br><span class="line">        nginx[&#39;listen_port&#39;] &#x3D; 80</span><br><span class="line">    ports:</span><br><span class="line">      - &#39;80:80&#39;</span><br><span class="line">      - &#39;8443:443&#39;</span><br><span class="line">      - &#39;2222:22&#39;        </span><br><span class="line">    volumes:    </span><br><span class="line">      - .&#x2F;config:&#x2F;etc&#x2F;gitlab</span><br><span class="line">      - .&#x2F;data:&#x2F;var&#x2F;opt&#x2F;gitlab</span><br><span class="line">      - .&#x2F;logs:&#x2F;var&#x2F;log&#x2F;gitlab</span><br></pre></td></tr></table></figure></li><li>创建gitlab所需使用的相关目录(此步骤可忽略，也可将上边配置文件的volumes选项修改为此路径)<br><code>mkdir /opt/gitlab/&#123;config,data,logs&#125; -p</code></li><li>拉取gitlab中文版镜像<br><code>docker pull twang2218/gitlab-ce-zh</code></li><li>查看镜像是否拉取成功<br><code>docker images</code></li><li>重启Docker<br><code>systemctl restart docker.service</code></li><li>启动gitlab的容器<br><code>docker-compose up -d</code></li><li>查看容器是否正常运行<br><code>docker ps -a</code><br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMmoq.png"><h2 id="GitLab相关操作"><a href="#GitLab相关操作" class="headerlink" title="GitLab相关操作"></a>GitLab相关操作</h2></li></ol><h3 id="GitLab创建项目"><a href="#GitLab创建项目" class="headerlink" title="GitLab创建项目"></a>GitLab创建项目</h3><ol><li>浏览器输入<code>http://IP地址</code>,第一次访问需设置密码(账户名：root)<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMuF0.png"></li><li>新建一个项目,项目名称随意填写，设置好后点击<code>create project</code>创建项目<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tM1lF.png"><br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMKYV.png"></li><li>创建好项目后如下图所示，点击按钮复制项目ssh地址，之后会用到<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMlSU.png"></li></ol><h3 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h3><ol><li>在Linux中生成密钥(输入命令后三次回车)<br><code>ssh-keygen</code></li><li>进入文件复制ssh密钥<br><code>vi /root/.ssh/id_rsa.pub</code></li><li>回到浏览器点击右边的头像——设置<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tM3y4.png"></li><li>将复制的密钥添加到gitlab中,点击<code>Add key</code>添加密钥<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMJm9.png"></li></ol><h3 id="Git上传代码到Gitlab仓库"><a href="#Git上传代码到Gitlab仓库" class="headerlink" title="Git上传代码到Gitlab仓库"></a>Git上传代码到Gitlab仓库</h3><ol><li><p>移动到任意一个目录下，克隆远程仓库到本地,仓库地址为上边复制过的SSH地址<br><code>cd /root</code><br><code>git clone 你的仓库地址</code><br><code>cd 仓库名称</code></p></li><li><p>添加git账户<br><code>git config --global user.name &quot;自定义账户名&quot;</code></p><blockquote><p>例：<code>git config --global user.name &quot;root&quot;</code></p></blockquote></li><li><p>添加git邮箱<br><code>git config --global user.email &quot;你的邮箱&quot;</code></p><blockquote><p>例：<code>git config --global user.email &quot;1186174184@qq.com&quot;</code></p></blockquote></li><li><p>上传代码到GitLab(操作与Windows里上传到Github操作一样),以下操作省略详细步骤<br><code>git add .</code><br><code>git commit -m &quot;1.0.0&quot;</code><br><code>git push origin master</code></p></li><li><p>推送代码后再次查看浏览器上的GitLab仓库,可看见上传成功的结果</p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="容器存储和网络基础-新建虚拟机版"><a href="#容器存储和网络基础-新建虚拟机版" class="headerlink" title="容器存储和网络基础(新建虚拟机版)"></a>容器存储和网络基础(新建虚拟机版)</h1><h2 id="实验准备"><a href="#实验准备" class="headerlink" title="实验准备"></a>实验准备</h2><p>两种方法：<br>方法一： 一台全新的虚拟机，并完成<a href="http://www.ifunan.cn/2020/09/10/Docker_%E5%AE%89%E8%A3%85/">Docker(一)安装</a><br>方法二： 如果有项目一的快照，则不需要新建虚拟机,克隆快照后修改IP地址即可</p><p>克隆快照方法：</p><ol><li>打开快照编辑器，选择快照并开始克隆<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLXUU.png"></li><li>进入后选择需要克隆的快照<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLj5F.png"></li><li>选择链接克隆<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLOET.png"></li><li>指定克隆后的虚拟机名称以及克隆虚拟机的存储位置，完成克隆<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/15/0oLqbV.png"></li><li>克隆完成后进入<strong>修改IP地址</strong></li></ol><h2 id="关闭防火墙及SeLinux"><a href="#关闭防火墙及SeLinux" class="headerlink" title="关闭防火墙及SeLinux"></a>关闭防火墙及SeLinux</h2><ol><li>关闭SELinux<br><code>sed -i &#39;s/SELINUX=.*/SELINUX=disabled/g&#39; /etc/selinux/config</code><br><code>setenforce 0</code></li><li>关闭防火墙及防火墙的开机自启动<br><code>systemctl stop firewalld.service</code><br><code>systemctl disable firewalld.service</code></li></ol><h2 id="Docker-compose编排工具"><a href="#Docker-compose编排工具" class="headerlink" title="Docker-compose编排工具"></a>Docker-compose编排工具</h2><ol><li>安装Docker编排工具docker-compose(Harbor依赖该服务)<br><code>yum -y install epel-release.noarch</code><br><code>yum makecache fast</code><br><code>yum -y install docker-compose.noarch</code></li></ol><h2 id="Docker-compose部署GitLab"><a href="#Docker-compose部署GitLab" class="headerlink" title="Docker-compose部署GitLab"></a>Docker-compose部署GitLab</h2><ol><li>新建gitlab安装目录<br><code>mkdir /usr/local/gitlab/</code><br><code>cd /usr/local/gitlab/</code></li><li>新建配置文件<br><code>vi docker-compose.yml</code>并添加以下内容(注意IP改为你的IP和配置项的缩进格式)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3&#39;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: &#39;twang2218&#x2F;gitlab-ce-zh&#39;</span><br><span class="line">    restart: always</span><br><span class="line">    hostname: &#39;IP地址&#39;</span><br><span class="line">    environment:</span><br><span class="line">      TZ: &#39;Asia&#x2F;Shanghai&#39;</span><br><span class="line">      GITLAB_OMNIBUS_CONFIG: |</span><br><span class="line">        external_url &#39;http:&#x2F;&#x2F;IP地址&#39;</span><br><span class="line">        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] &#x3D; 2222</span><br><span class="line">        unicorn[&#39;port&#39;] &#x3D; 8888</span><br><span class="line">        nginx[&#39;listen_port&#39;] &#x3D; 80</span><br><span class="line">    ports:</span><br><span class="line">      - &#39;80:80&#39;</span><br><span class="line">      - &#39;8443:443&#39;</span><br><span class="line">      - &#39;2222:22&#39;        </span><br><span class="line">    volumes:    </span><br><span class="line">      - .&#x2F;config:&#x2F;etc&#x2F;gitlab</span><br><span class="line">      - .&#x2F;data:&#x2F;var&#x2F;opt&#x2F;gitlab</span><br><span class="line">      - .&#x2F;logs:&#x2F;var&#x2F;log&#x2F;gitlab</span><br></pre></td></tr></table></figure></li><li>创建gitlab所需使用的相关目录(此步骤可忽略，也可将上边配置文件的volumes选项修改为此路径)<br><code>mkdir /opt/gitlab/&#123;config,data,logs&#125; -p</code></li><li>拉取gitlab中文版镜像<br><code>docker pull twang2218/gitlab-ce-zh</code></li><li>查看镜像是否拉取成功<br><code>docker images</code></li><li>重启Docker<br><code>systemctl restart docker.service</code></li><li>启动gitlab的容器<br><code>docker-compose up -d</code></li><li>查看容器是否正常运行<br><code>docker ps -a</code><br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMmoq.png"></li></ol><h2 id="GitLab相关操作"><a href="#GitLab相关操作" class="headerlink" title="GitLab相关操作"></a>GitLab相关操作</h2><h3 id="GitLab创建项目"><a href="#GitLab创建项目" class="headerlink" title="GitLab创建项目"></a>GitLab创建项目</h3><ol><li>浏览器输入<code>http://IP地址</code>,第一次访问需设置密码(账户名：root)<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMuF0.png"></li><li>新建一个项目,项目名称随意填写，设置好后点击<code>create project</code>创建项目<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tM1lF.png"><br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMKYV.png"></li><li>创建好项目后如下图所示，点击按钮复制项目ssh地址，之后会用到<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMlSU.png"></li></ol><h3 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h3><ol><li>在Linux中生成密钥(输入命令后三次回车)<br><code>ssh-keygen</code></li><li>进入文件复制ssh密钥<br><code>vi /root/.ssh/id_rsa.pub</code></li><li>回到浏览器点击右边的头像——设置<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tM3y4.png"></li><li>将复制的密钥添加到gitlab中,点击<code>Add key</code>添加密钥<br><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/10/05/0tMJm9.png"></li></ol><h3 id="Git上传代码到Gitlab仓库"><a href="#Git上传代码到Gitlab仓库" class="headerlink" title="Git上传代码到Gitlab仓库"></a>Git上传代码到Gitlab仓库</h3><ol><li><p>移动到任意一个目录下，克隆远程仓库到本地,仓库地址为上边复制过的SSH地址<br><code>cd /root</code><br><code>git clone 你的仓库地址</code><br><code>cd 仓库名称</code></p></li><li><p>添加git账户<br><code>git config --global user.name &quot;自定义账户名&quot;</code></p><blockquote><p>例：<code>git config --global user.name &quot;root&quot;</code></p></blockquote></li><li><p>添加git邮箱<br><code>git config --global user.email &quot;你的邮箱&quot;</code></p><blockquote><p>例：<code>git config --global user.email &quot;1186174184@qq.com&quot;</code></p></blockquote></li><li><p>上传代码到GitLab(操作与Windows里上传到Github操作一样),以下操作省略详细步骤<br><code>git add .</code><br><code>git commit -m &quot;1.0.0&quot;</code><br><code>git push origin master</code></p></li><li><p>推送代码后再次查看浏览器上的GitLab仓库,可看见上传成功的结果</p></li></ol>]]></content>
     
     
       
@@ -66,8 +66,8 @@
   
   <entry>
     <title>Docker(四)容器存储和网络基础(修改端口版)</title>
-    <link href="http://www.ifunan.cn/2020/10/05/Docker_%E5%AE%B9%E5%99%A8%E5%AD%98%E5%82%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"/>
-    <id>http://www.ifunan.cn/2020/10/05/Docker_%E5%AE%B9%E5%99%A8%E5%AD%98%E5%82%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-10-05T14:07:59.000Z</published>
     <updated>2020-10-15T07:07:48.332Z</updated>
     
@@ -90,8 +90,8 @@
   
   <entry>
     <title>Docker(三)应用容器化</title>
-    <link href="http://www.ifunan.cn/2020/09/24/Docker_%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96/"/>
-    <id>http://www.ifunan.cn/2020/09/24/Docker_%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-09-24T00:26:57.000Z</published>
     <updated>2020-10-15T05:51:43.742Z</updated>
     
@@ -114,8 +114,8 @@
   
   <entry>
     <title>Docker(二)常用操作</title>
-    <link href="http://www.ifunan.cn/2020/09/17/Docker_%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/"/>
-    <id>http://www.ifunan.cn/2020/09/17/Docker_%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-09-16T16:11:23.000Z</published>
     <updated>2020-09-24T02:31:28.594Z</updated>
     
@@ -138,8 +138,8 @@
   
   <entry>
     <title>Docker(一)安装</title>
-    <link href="http://www.ifunan.cn/2020/09/10/Docker_%E5%AE%89%E8%A3%85/"/>
-    <id>http://www.ifunan.cn/2020/09/10/Docker_%E5%AE%89%E8%A3%85/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-09-10T03:05:32.000Z</published>
     <updated>2020-09-24T02:31:27.848Z</updated>
     
@@ -162,8 +162,8 @@
   
   <entry>
     <title>Shell通配符</title>
-    <link href="http://www.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/"/>
-    <id>http://www.ifunan.cn/2020/05/21/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_ShellTable/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-05-21T04:27:12.000Z</published>
     <updated>2020-08-30T09:48:52.708Z</updated>
     
@@ -186,8 +186,8 @@
   
   <entry>
     <title>Ceph分布式存储系统搭建</title>
-    <link href="http://www.ifunan.cn/2020/04/26/%E4%BA%91%E5%AD%98%E5%82%A8_Ceph/"/>
-    <id>http://www.ifunan.cn/2020/04/26/%E4%BA%91%E5%AD%98%E5%82%A8_Ceph/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-04-26T04:35:55.000Z</published>
     <updated>2020-08-30T09:48:51.309Z</updated>
     
@@ -213,8 +213,8 @@
   
   <entry>
     <title>Ansible安装配置</title>
-    <link href="http://www.ifunan.cn/2020/04/22/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Ansible/"/>
-    <id>http://www.ifunan.cn/2020/04/22/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Ansible/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-04-21T16:35:56.000Z</published>
     <updated>2020-08-30T09:48:51.850Z</updated>
     
@@ -237,8 +237,8 @@
   
   <entry>
     <title>GlusterFS文件系统搭建</title>
-    <link href="http://www.ifunan.cn/2020/04/19/%E4%BA%91%E5%AD%98%E5%82%A8_GlusterFS/"/>
-    <id>http://www.ifunan.cn/2020/04/19/%E4%BA%91%E5%AD%98%E5%82%A8_GlusterFS/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-04-19T07:27:05.000Z</published>
     <updated>2020-08-30T09:48:51.457Z</updated>
     
@@ -261,8 +261,8 @@
   
   <entry>
     <title>Nginx+Tomcat负载均衡实验</title>
-    <link href="http://www.ifunan.cn/2020/04/17/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx+Tomcat/"/>
-    <id>http://www.ifunan.cn/2020/04/17/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx+Tomcat/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-04-17T06:31:28.000Z</published>
     <updated>2020-08-30T09:48:52.197Z</updated>
     
@@ -285,8 +285,8 @@
   
   <entry>
     <title>php及phpMyAdmin安装与配置</title>
-    <link href="http://www.ifunan.cn/2020/04/12/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Php/"/>
-    <id>http://www.ifunan.cn/2020/04/12/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Php/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-04-12T09:55:58.000Z</published>
     <updated>2020-08-30T09:48:52.466Z</updated>
     
@@ -309,8 +309,8 @@
   
   <entry>
     <title>Tomcat的安装与配置</title>
-    <link href="http://www.ifunan.cn/2020/03/24/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Tomcat/"/>
-    <id>http://www.ifunan.cn/2020/03/24/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Tomcat/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-03-24T14:56:07.000Z</published>
     <updated>2020-08-30T09:48:52.789Z</updated>
     
@@ -333,8 +333,8 @@
   
   <entry>
     <title>NFS在CentOS7下的安装与部署</title>
-    <link href="http://www.ifunan.cn/2020/03/19/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_NFS/"/>
-    <id>http://www.ifunan.cn/2020/03/19/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_NFS/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-03-19T12:55:30.000Z</published>
     <updated>2020-08-30T09:48:52.126Z</updated>
     
@@ -357,8 +357,8 @@
   
   <entry>
     <title>Openfiler在Web界面配置NFS和iSCSI</title>
-    <link href="http://www.ifunan.cn/2020/03/13/%E4%BA%91%E5%AD%98%E5%82%A8_openfiler/"/>
-    <id>http://www.ifunan.cn/2020/03/13/%E4%BA%91%E5%AD%98%E5%82%A8_openfiler/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-03-13T11:57:57.000Z</published>
     <updated>2020-08-30T09:48:51.722Z</updated>
     
@@ -381,8 +381,8 @@
   
   <entry>
     <title>MySQL在Centos7下的安装与配置</title>
-    <link href="http://www.ifunan.cn/2020/03/10/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Mysql/"/>
-    <id>http://www.ifunan.cn/2020/03/10/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Mysql/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-03-10T11:23:00.000Z</published>
     <updated>2020-08-30T09:48:51.975Z</updated>
     
@@ -405,8 +405,8 @@
   
   <entry>
     <title>Centos 7下搭建Hadoop（单机伪分布式）</title>
-    <link href="http://www.ifunan.cn/2020/03/05/%E5%A4%A7%E6%95%B0%E6%8D%AE_Hadoop%E5%AE%89%E8%A3%85/"/>
-    <id>http://www.ifunan.cn/2020/03/05/%E5%A4%A7%E6%95%B0%E6%8D%AE_Hadoop%E5%AE%89%E8%A3%85/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-03-05T05:42:35.000Z</published>
     <updated>2020-08-30T09:48:52.956Z</updated>
     
@@ -429,8 +429,8 @@
   
   <entry>
     <title>Nginx单点部署</title>
-    <link href="http://www.ifunan.cn/2020/03/05/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx/"/>
-    <id>http://www.ifunan.cn/2020/03/05/%E4%BA%91%E7%B3%BB%E7%BB%9F%E7%BB%B4%E6%8A%A4_Nginx/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-03-05T02:41:48.000Z</published>
     <updated>2020-08-30T09:48:52.346Z</updated>
     
@@ -453,8 +453,8 @@
   
   <entry>
     <title>LVM逻辑卷管理</title>
-    <link href="http://www.ifunan.cn/2020/03/02/%E4%BA%91%E5%AD%98%E5%82%A8_LVM/"/>
-    <id>http://www.ifunan.cn/2020/03/02/%E4%BA%91%E5%AD%98%E5%82%A8_LVM/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-03-02T04:28:59.000Z</published>
     <updated>2020-08-30T09:48:51.569Z</updated>
     
@@ -477,8 +477,8 @@
   
   <entry>
     <title>一文让你看懂IaaS、PaaS和SaaS</title>
-    <link href="http://www.ifunan.cn/2020/02/28/%E9%9A%8F%E6%89%8B%E8%AE%B0_%E4%BA%91%E8%AE%A1%E7%AE%97%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://www.ifunan.cn/2020/02/28/%E9%9A%8F%E6%89%8B%E8%AE%B0_%E4%BA%91%E8%AE%A1%E7%AE%97%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/</id>
+    <link href="http://www.ifunan.cn/posts/undefined/"/>
+    <id>http://www.ifunan.cn/posts/undefined/</id>
     <published>2020-02-28T04:06:02.000Z</published>
     <updated>2020-08-30T09:48:53.271Z</updated>
     

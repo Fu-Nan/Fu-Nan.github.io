@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.ifunan.cn/posts/184eb85d/</loc>
+    <loc>http://www.ifunan.cn/posts/2cea0647/</loc>
     
     <lastmod>2020-10-25</lastmod>
     
@@ -353,6 +353,13 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>http://www.ifunan.cn/tags/travel/</loc>
+    <lastmod>2020-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -399,6 +406,13 @@
   
   <url>
     <loc>http://www.ifunan.cn/categories/Docker/</loc>
+    <lastmod>2020-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.ifunan.cn/categories/travel/</loc>
     <lastmod>2020-10-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

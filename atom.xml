@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2020-10-23T03:25:43.315Z</updated>
+  <updated>2020-10-25T06:30:12.575Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>测试文档</title>
+    <link href="http://www.ifunan.cn/posts/184eb85d/"/>
+    <id>http://www.ifunan.cn/posts/184eb85d/</id>
+    <published>2020-10-25T06:29:45.000Z</published>
+    <updated>2020-10-25T06:30:12.575Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="测试文档"><a href="#测试文档" class="headerlink" title="测试文档"></a>测试文档</h1><p>第一张<br><img src= "/img/loading.gif" data-lazy-src="/images/travel/1.jpg"><br>第二张<br><img src= "/img/loading.gif" data-lazy-src="/images/travel/2.jpg"><br>英文命名<br><img src= "/img/loading.gif" data-lazy-src="/images/travel/english.jpg"><br>中文命名<br><img src= "/img/loading.gif" data-lazy-src="/images/travel/%E4%B8%AD%E6%96%87.jpg"><br>不加根目录<br><img src= "/img/loading.gif" data-lazy-src="images/travel/2.jpg"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;测试文档&quot;&gt;&lt;a href=&quot;#测试文档&quot; class=&quot;headerlink&quot; title=&quot;测试文档&quot;&gt;&lt;/a&gt;测试文档&lt;/h1&gt;&lt;p&gt;第一张&lt;br&gt;&lt;img src= &quot;/img/loading.gif&quot; data-lazy-src=&quot;/images/tra</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Docker(七)Kubernetes基础</title>
@@ -472,30 +492,6 @@
     
     
     <category term="Nginx" scheme="http://www.ifunan.cn/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LVM逻辑卷管理</title>
-    <link href="http://www.ifunan.cn/posts/6aecfb09/"/>
-    <id>http://www.ifunan.cn/posts/6aecfb09/</id>
-    <published>2020-03-02T04:28:59.000Z</published>
-    <updated>2020-10-15T08:16:57.895Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="LVM逻辑卷的管理"><a href="#LVM逻辑卷的管理" class="headerlink" title="LVM逻辑卷的管理"></a>LVM逻辑卷的管理</h1><p>LVM(Logical Volume Manager)是建立在硬盘和分区之上的一个逻辑层,主要用来提高磁盘分区管理的灵活性，可以动态地调整磁盘分区的大小</p><h2 id="LVM基本概念"><a href="#LVM基本概念" class="headerlink" title="LVM基本概念"></a>LVM基本概念</h2><p>PV(Physical Volume,物理卷)<br>&emsp;整个硬盘，或使用fdisk等工具建立的普通分区<br>&emsp;包括许多默认4MB大小的PE(Physical Extent,基本单元),可以修改默认值的大小</p><p>VG(Volume Group,卷组)<br>&emsp;一个或多个物理卷组合而成的整体</p><p>LV(Logical Volume,逻辑卷)<br>&emsp;从卷组中分割出的一块空间，用于建立文件系统<br>思路：PV——VG——LV——格式化文件系统——挂载使用</p><h2 id="LVM管理命令"><a href="#LVM管理命令" class="headerlink" title="LVM管理命令"></a>LVM管理命令</h2><table><thead><tr><th align="center">功能</th><th align="center">物理卷</th><th align="center">卷组</th><th align="center">逻辑卷</th></tr></thead><tbody><tr><td align="center">Scan(扫描,查看)</td><td align="center">pvscan</td><td align="center">vgscan</td><td align="center">lvscan</td></tr><tr><td align="center">Create</td><td align="center">pvcreate</td><td align="center">vgcreate</td><td align="center">lvcreate</td></tr><tr><td align="center">Display</td><td align="center">pvdisplay</td><td align="center">vgdisplay</td><td align="center">lvdisplay</td></tr><tr><td align="center">Remove</td><td align="center">pvremove</td><td align="center">vgremove</td><td align="center">lvremove</td></tr><tr><td align="center">Extend(扩展容量)</td><td align="center">&emsp;</td><td align="center">vgextend</td><td align="center">lvextend</td></tr><tr><td align="center">Reduce(减小容量)</td><td align="center">&emsp;</td><td align="center">vgreduce</td><td align="center">lvreduce</td></tr></tbody></table><p>主要命令：</p><ul><li><code>pvcreate 设备名</code></li><li><code>vgcreate 自定义卷组名 物理卷名1 物理卷名2</code>&emsp;&emsp;//vgcreate myvg /dev/sdb[1-2]</li><li><code>lvcreate -L 大小 -n 自定义逻辑卷名 卷组名1</code></li><li><code>lvextend -L +大小 /dev/卷组名/逻辑卷名(相当于逻辑卷的路径)</code></li><li><code>resize2fs 逻辑卷路径</code>&emsp;&emsp;&emsp;&emsp;//扩容逻辑卷后需要更新文件系统的信息</li><li><code>lvreduce -L -大小 逻辑卷路径</code></li></ul><h2 id="命令的详细用方法"><a href="#命令的详细用方法" class="headerlink" title="命令的详细用方法"></a>命令的详细用方法</h2><ol><li><code>partx /dev/sdb</code>        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  使内核重新读取分区并查看分区信息</li></ol><p><strong>物理卷：</strong><br>2. <code>pvcreate /dev/sdb1 /dev/sdb2</code>        &emsp;&emsp;&emsp;  使用两个分区创建物理卷<br>3. <code>pvs</code> 查看所有创建的物理卷 &emsp; <code>pvdisplay</code> 查看物理卷详细信息  &emsp; <code>pvscan</code> 扫描物理卷<br>4. <code>pvremove /dev/sdb1</code>    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  删除物理卷<br><strong>卷组：</strong><br>5. <code>vgcreate myvg /dev/sdb[1-2]</code>    &emsp;&emsp;&emsp; 创建卷组，将两个物理卷添加进来<br><code>vgcreate -s 16m myvg /dev/sdb[1-2]</code>    &emsp; 创建卷组时指定PE大小<br>6. <code>vgs</code>  查看所有创建的卷组 &emsp; <code>vgdisplay</code> 查看卷组详细信息 &emsp; <code>vgscan</code> 扫描卷组<br>7. 注：要删除卷组中物理卷时，先转移数据    <code>pvmove /dev/sdb1</code><br>然后再缩减卷组大小        <code>vgreduce myvg /dev/sdb1</code><br>8. <code>vgextend myvg /dev/sdb1</code>    &emsp;&emsp;&emsp;&emsp;&emsp; 添加物理卷到卷组中<br>9. <code>vgremove myvg</code>    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 删除卷组<br><strong>逻辑卷：</strong><br>10. <code>lvcreate -L+5G -n mylv myvg</code>    &emsp;&emsp;&emsp;&emsp; 创建逻辑卷,-L指定大小,-n指定逻辑卷名称<br>11. <code>lvremove [逻辑卷路径]</code>        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 删除逻辑卷<br>12. <code>fdisk -l</code> 查看创建的逻辑卷    <code>mkfs.ext4 [逻辑卷路径]</code> 格式化逻辑卷，挂载使用<br>13. 注：卷扩容    <code>lvextend -L+1G [逻辑卷路径]</code><br>逻辑卷扩容后要对文件系统扩容    <code>resize2fs [逻辑卷路径]</code><br>卷缩减(步骤:先取消挂载LV;再缩减LV大小;最后再格式化一次才能重新挂载 &emsp; <code>lvreduce -L-3G [逻辑卷路径]</code>)</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;LVM逻辑卷的管理&quot;&gt;&lt;a href=&quot;#LVM逻辑卷的管理&quot; class=&quot;headerlink&quot; title=&quot;LVM逻辑卷的管理&quot;&gt;&lt;/a&gt;LVM逻辑卷的管理&lt;/h1&gt;&lt;p&gt;LVM(Logical Volume Manager)是建立在硬盘和分区之上的一个逻</summary>
-      
-    
-    
-    
-    <category term="云存储技术" scheme="http://www.ifunan.cn/categories/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="云存储技术" scheme="http://www.ifunan.cn/tags/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   

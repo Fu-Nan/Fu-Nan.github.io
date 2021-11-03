@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2021-11-03T09:15:54.711Z</updated>
+  <updated>2021-11-03T09:19:28.585Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Windows下Hexo配置</title>
-    <link href="http://www.ifunan.cn/posts/f125ee8b/"/>
-    <id>http://www.ifunan.cn/posts/f125ee8b/</id>
+    <link href="http://www.ifunan.cn/posts/86958cb8/"/>
+    <id>http://www.ifunan.cn/posts/86958cb8/</id>
     <published>2021-11-03T09:15:51.000Z</published>
-    <updated>2021-11-03T09:15:54.711Z</updated>
+    <updated>2021-11-03T09:19:28.585Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Windows提交Hexo到GitHub"><a href="#Windows提交Hexo到GitHub" class="headerlink" title="Windows提交Hexo到GitHub"></a>Windows提交Hexo到GitHub</h1><h2 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h2><p>npm: nodejs下的包管理器</p><ol><li>访问<a href="https://nodejs.org/zh-cn/">nodejs官网</a>下载nodejs</li><li>下载后点击安装Nodejs，改变安装路径，点击选择<code>Add to PATH</code>，最后点击Finish完成安装</li><li>在cmd窗口<code>node -v</code>查看nodejs安装情况，<code>npm -v</code>查看npm安装情况（默认情况下npm版本都有点旧）</li></ol><h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>在安装好nodejs、npm、git后，执行以下步骤</p><ol><li>在选择的目录下打开git界面，配置安装Hexo<br><code>npm install hexo-cli -g</code>，<code>npm install hexo --save</code></li></ol><h2 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h2><ol><li>配置用户名和邮箱<br><code>git config --global user.name &quot;XXX&quot;</code>，<code>git config --global user.email &quot;XXX&quot;</code></li><li>查看用户名和邮箱<br><code>git config user.name</code>，<code>git config user.email</code></li><li>查看当前Git环境所有配置<br><code>git config --list</code></li></ol><h2 id="配置GitHub"><a href="#配置GitHub" class="headerlink" title="配置GitHub"></a>配置GitHub</h2><ol><li>在Git生成配置密钥，生成过程中按三次回车，存放在windows用户目录的.ssh下<br><code>ssh-keygen -t rsa -C &quot;邮箱&quot;</code></li><li>复制<code>id_rsa.pub</code>文件中的密钥</li><li>在GitHub上点击头像——Settings——SSH and GPG keys——New SSH key，粘贴复制的密钥</li><li>完成后保存回到Git界面，验证配置SSH Key是否成功，弹出的选项选择<code>yes</code>(出现Hi Fu-Nan! You’ve successfully…类似文字即为成功<br><code>ssh -T git@github.com</code></li></ol><h2 id="上传内容到GitHub"><a href="#上传内容到GitHub" class="headerlink" title="上传内容到GitHub"></a>上传内容到GitHub</h2><ol><li>编辑好内容后使用<code>hexo g</code>生成页面</li><li>在当前文件夹初始化git（不影响当下的资源）<br><code>git init</code></li><li>添加该项目下所有文件到队列<br><code>git add .</code></li><li>将文件添加到仓库中<br><code>git commit -m &#39;说明信息&#39;</code></li><li>在GitHub创建一个仓库</li><li>将本地仓库关联到远程仓库<br><code>git remote add origin 仓库http地址</code></li><li>将本地代码推送到指定远程仓库中<br><code>git push -u origin main</code></li></ol><h2 id="友情链接"><a href="#友情链接" class="headerlink" title="友情链接"></a>友情链接</h2><p>Windows安装npm教程：<a href="https://www.cnblogs.com/jianguo221/p/11487532.html">https://www.cnblogs.com/jianguo221/p/11487532.html</a><br>nodejs详细安装步骤：<a href="https://blog.csdn.net/muzidigbig/article/details/80493880">https://blog.csdn.net/muzidigbig/article/details/80493880</a><br>Git上传项目：<a href="https://www.cnblogs.com/ql123456/p/10626810.html">https://www.cnblogs.com/ql123456/p/10626810.html</a><br>GitHub配置SSH Key：<a href="https://blog.csdn.net/u013778905/article/details/83501204">https://blog.csdn.net/u013778905/article/details/83501204</a></p>]]></content>
     

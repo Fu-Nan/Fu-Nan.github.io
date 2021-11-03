@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2021-11-03T09:04:34.985Z</updated>
+  <updated>2021-11-03T09:05:09.245Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>新文档</title>
     <link href="http://www.ifunan.cn/posts/0/"/>
     <id>http://www.ifunan.cn/posts/0/</id>
     <published>2021-11-03T09:04:45.581Z</published>
-    <updated>2021-11-03T09:04:34.985Z</updated>
+    <updated>2021-11-03T09:05:09.245Z</updated>
     
     <content type="html"><![CDATA[<h1 id="New-page"><a href="#New-page" class="headerlink" title="New page#"></a>New page#</h1><p>test </p><p>setsetset </p><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p><a href="https://www.baidu.com/">百度</a></p>]]></content>
     

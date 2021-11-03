@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.ifunan.cn/posts/86958cb8/</loc>
+    <loc>http://www.ifunan.cn/posts/3b8f226c/</loc>
     
     <lastmod>2021-11-03</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.ifunan.cn/posts/0/</loc>
+    <loc>http://www.ifunan.cn/posts/86958cb8/</loc>
     
     <lastmod>2021-11-03</lastmod>
     
@@ -381,6 +381,13 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>http://www.ifunan.cn/tags/Vue/</loc>
+    <lastmod>2021-11-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -434,6 +441,13 @@
   
   <url>
     <loc>http://www.ifunan.cn/categories/travel/</loc>
+    <lastmod>2021-11-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.ifunan.cn/categories/Vue%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2021-11-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

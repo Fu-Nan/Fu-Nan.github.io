@@ -39,11 +39,11 @@
   </entry>
   
   <entry>
-    <title>Vue</title>
-    <link href="http://www.ifunan.cn/posts/0/"/>
-    <id>http://www.ifunan.cn/posts/0/</id>
-    <published>2021-11-03T03:27:26.999Z</published>
-    <updated>2021-11-03T06:17:18.397Z</updated>
+    <title>Vue前端开发</title>
+    <link href="http://www.ifunan.cn/posts/3b8f226c/"/>
+    <id>http://www.ifunan.cn/posts/3b8f226c/</id>
+    <published>2021-11-03T08:43:00.000Z</published>
+    <updated>2021-11-03T09:36:07.053Z</updated>
     
     <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><pre><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;    &lt;meta charset=&quot;UTF-8&quot;&gt;    &lt;title&gt;第一个实例&lt;/title&gt;    &lt;script type=&quot;text/javascript&quot; src=&quot;../JS/vue.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&quot;box&quot;&gt;    &lt;h1&gt;&#123;&#123;message&#125;&#125;&lt;/h1&gt;&lt;/div&gt;&lt;script type=&quot;text/javascript&quot;&gt;    var vm = new Vue(&#123;        el : &#39;#box&#39;,        data : &#123;            message : &#39;I Like Vue!&#39;        &#125;    &#125;);&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><blockquote><p>首先引入Vue文件。div块里的<code>message</code>变量与vue<code>data</code>中的<code>message</code>变量相关联，改变data里<code>message</code>值就会同步改变页面的内容。注意在创建Vue实例后加上一个分号。<code>message</code>里的内容必须是单引号包含的，不能是双引号。</p></blockquote><ol><li>var为声明变量</li><li><code>//</code>是注释</li></ol><h1 id="基础特性"><a href="#基础特性" class="headerlink" title="基础特性"></a>基础特性</h1><h2 id="Vue实例和选项"><a href="#Vue实例和选项" class="headerlink" title="Vue实例和选项"></a>Vue实例和选项</h2><p>在创建对象实例时，可以在<strong>构造函数</strong>中传入一个<strong>选项对象</strong>。<strong>选项对象</strong>包括挂载元素、数据、方法、生命周期钩子函数。</p><h3 id="挂载元素"><a href="#挂载元素" class="headerlink" title="挂载元素"></a>挂载元素</h3><p>Vue实例中的<code>el</code>选项为实例本身提供挂载元素。定义挂载元素后接下来的全部操作都在该元素里进行，元素外部不受影响。</p><blockquote><p>即el是绑定的由<code>id</code>标识的div块，后续的实例操作也是仅仅操作那一个div，而不影响另外的div。</p></blockquote><p><code>&lt;div id=&quot;box&quot; class=&quot;box&quot;&gt;&lt;/div&gt;</code><br>这里挂载元素有三种方式：<code>el:&#39;#box&#39;</code>，<code>el:&#39;.box&#39;</code>，<code>el:&#39;div&#39;</code>。</p><h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><p>使用<code>data</code>选项定义<strong>数据</strong>，数据可以绑定到实例对应的模板(即div)中。示例如下：</p><pre><code>&lt;div id=&quot;box&quot;&gt;    &lt;h1&gt;网站名称：&#123;&#123;name&#125;&#125;&lt;/h1&gt;    &lt;h1&gt;网站地址：&#123;&#123;url&#125;&#125;&lt;/h1&gt;&lt;/div&gt;&lt;script type=&quot;text/javascript&quot;&gt;    var vm = new Vue(&#123;        el : &#39;#box&#39;,        data : &#123;            name : &#39;ifunan&#39;,          url : &#39;www.ifunan.cn&#39;        &#125;    &#125;);&lt;/script&gt;</code></pre><blockquote><p>首选创建了一个Vue实例<code>vm</code>，模板中<code>&#123;&#123;name&#125;&#125;</code>用于输出name属性值，<code>&#123;&#123;url&#125;&#125;</code>用于输出url属性值。即<strong>data数据与DOM进行了关联</strong></p></blockquote><p>在创建Vue实例时，如果给data赋值一个对象，那么Vue实例会代理data对象中所有的属性。<br>当属性值发生变化，HTML视图也会发生相应变化。所以<strong>data对象中定义的属性称为响应式属性</strong>。示例如下：</p><pre><code>&lt;div id=&quot;box&quot;&gt;    &lt;h1&gt;网站名称：&#123;&#123;name&#125;&#125;&lt;/h1&gt;    &lt;h1&gt;网站地址：&#123;&#123;url&#125;&#125;&lt;/h1&gt;&lt;/div&gt;&lt;script type=&quot;text/javascript&quot;&gt;    var data = &#123;name:&#39;ifunan&#39;,url:&#39;www.ifunan.cn&#39;&#125;;    var vm = new Vue(&#123;        el : &#39;#box&#39;,        data : data,    &#125;);&lt;/script&gt;</code></pre><p>注：只有在对象实例里的数据才是响应式的。</p><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>使用<code>methods</code>选项定义<strong>方法</strong>，示例如下：</p><pre><code>&lt;div id=&quot;box&quot;&gt;    &lt;h3&gt;&#123;&#123;showInfo()&#125;&#125;&lt;/h3&gt;&lt;/div&gt;&lt;script type=&quot;text/javascript&quot;&gt;    var vm = new Vue(&#123;        el : &#39;#box&#39;,        data : &#123;            name : &#39;ifunan&#39;,            url : &#39;www.ifunan.cn&#39;,        &#125;,        methods : &#123;            showInfo : function () &#123;                return this.name + &#39;: &#39; +this.uri;            &#125;        &#125;    &#125;);&lt;/script&gt;</code></pre><blockquote><ol><li>调用方法和使用data属性值相同，在div块里使用两个包括住方法。</li><li><code>methods</code>和<code>data</code>是平级的，所以在<code>data</code>写完后加上一个逗号，下面写方法。（data和methods在格式上有很多相似之处）</li><li>return写完后要加上一个分号<code>;</code></li></ol></blockquote><h3 id="生命周期钩子函数"><a href="#生命周期钩子函数" class="headerlink" title="生命周期钩子函数"></a>生命周期钩子函数</h3>]]></content>
     
@@ -57,6 +57,10 @@
     
     
     
+    <category term="Vue前端开发" scheme="http://www.ifunan.cn/categories/Vue%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="Vue" scheme="http://www.ifunan.cn/tags/Vue/"/>
     
   </entry>
   

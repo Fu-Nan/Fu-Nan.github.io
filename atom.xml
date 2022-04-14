@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2022-03-14T12:21:36.441Z</updated>
+  <updated>2022-03-14T12:22:28.154Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.ifunan.cn/posts/fdbca6c1/"/>
     <id>http://www.ifunan.cn/posts/fdbca6c1/</id>
     <published>2022-03-14T12:19:20.000Z</published>
-    <updated>2022-03-14T12:21:36.441Z</updated>
+    <updated>2022-03-14T12:22:28.154Z</updated>
     
     <content type="html"><![CDATA[<h1 id="大疆调光"><a href="#大疆调光" class="headerlink" title="大疆调光"></a>大疆调光</h1><p>写在前面：调节三个参数：快门速度、感光度（iso）、白平衡</p><h2 id="白平衡"><a href="#白平衡" class="headerlink" title="白平衡"></a>白平衡</h2><p>白平衡的调节改为手动，<strong>根据天气调整白平衡</strong>,具体的数值参照下表:<br><img src= "/img/loading.gif" data-lazy-src="/images/DJI/baipingheng.png"></p><h2 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h2><p>开启<strong>直方图</strong>和<strong>过曝提示</strong>。</p><ol><li>在遥控器上点设置——拍摄——打开直方图、过曝提示。</li><li>直方图尽量向右曝光，同时也要使画面轻微过曝或不过曝(在过曝的边缘)<blockquote><p>注：直方图向左聚集表示画面暗的部分较多，聚集在右边表示较亮的部分多</p></blockquote></li></ol><h2 id="感光度"><a href="#感光度" class="headerlink" title="感光度"></a>感光度</h2><p><strong>iso白天设置最低，通过设置快门速度来调整过曝</strong>。</p><blockquote><p>注：当快门速度调节到最慢，画面还不够亮时，再去调节ISO(如天快黑了或者傍晚)</p></blockquote><h2 id="快门速度"><a href="#快门速度" class="headerlink" title="快门速度"></a>快门速度</h2><ol><li>使用快门速度调整过曝。</li><li>180度快门角法则：快门速度=1/(帧速率*2)<br>eg：帧速率30fps，则快门速度为1/60s<blockquote><p>注：此条准则与第二条注意事项冲突，是因为本应该以本条法则为准，但需要搭配ND滤镜，所需偷懒用了第二条的方法。</p></blockquote></li><li>同时拍摄天空和地底，先根据天空的亮度调好参数</li></ol><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>参考自：<a href="https://www.bilibili.com/video/BV1tK4y1577j?spm_id_from=333.788.b_636f6d6d656e74.154">哔哩哔哩UP</a></p>]]></content>
     
@@ -87,6 +87,28 @@
     
     
     <category term="HTML" scheme="http://www.ifunan.cn/tags/HTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WeChatApp</title>
+    <link href="http://www.ifunan.cn/posts/b718f216/"/>
+    <id>http://www.ifunan.cn/posts/b718f216/</id>
+    <published>2021-12-06T09:34:40.000Z</published>
+    <updated>2022-04-14T09:57:15.426Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="微信全局配置文件app-json"><a href="#微信全局配置文件app-json" class="headerlink" title="微信全局配置文件app.json"></a>微信全局配置文件app.json</h2><p>app.json常用配置项：</p><ul><li>pages：记录当前小程序所有页面的存放路径</li><li>windows：全局设置小程序窗口的外观</li><li>tabBar：设置小程序底部的tabBar效果</li><li>style：是否启用新版的组件样式</li></ul><p>app.json组成示意图：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/tabBarSetting.png"></p><p>小程序窗口的组成部分：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/Windows.png" alt="窗口组成部分"></p><h3 id="Windows配置项"><a href="#Windows配置项" class="headerlink" title="Windows配置项"></a>Windows配置项</h3><p>| 属性名 | 类型 | 默认值 | 说明 |<br>| :-: | | :-: | | :-: | | :-: |<br>| navigationBarTitleText | String | 字符串 | 导航栏标题文字内容 |<br>| navigationBarBackgroundColor | HexColor | #000000 | 导航栏背景颜色，如 #000000 |<br>| navigationBarTextStyle | String | white | 导航栏标题颜色，仅支持black/white |<br>| backgroundColor | HexColor | #ffffff | 窗口的背景色 |<br>| backgroundTextStyle | String | dark | 下拉 loading 的样式，仅支持dark/light |<br>| enablePullDownRefresh | Boolean | false | 是否全局开启下拉刷新 |<br>| onReachBottomDistance | Number | 50 | 页面上拉触底事件触发时距页面底部距离，单位为px |</p><h3 id="tabBar配置项"><a href="#tabBar配置项" class="headerlink" title="tabBar配置项"></a>tabBar配置项</h3><p>作用： 是移动端应用常见的页面效果，用于<strong>实现多页面的快速切换</strong>。</p><ul><li>tabBar分为<strong>底部tabBar</strong>和<strong>顶部tabBar</strong>。</li><li>当设置为<strong>顶部tabBar</strong>时不显示icon(即按钮图标）,只显示文本。</li><li>tabBar最少2个、最多5个tab页签。<br>tabBar组成示意图及说明如下：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/tabBar.png"></li></ul><p>tabBar配置项如下</p><p>| 属性 | 类型 | 必填 | 默认值 | 描述 |<br>| :-: | | :-: | | :-: | | :-: | | :-: |<br>| position | String | 否 | bottom | tabBar的位置，仅支持bottom/top |<br>| borderStyle | String | 否 | black | tabBar上边框的颜色，仅支持black/white |<br>| color | HexColor | 否 | &nbsp; | tab上文字的默认（未选中）颜色 |<br>| selectedColor | HexColor | 否 | &nbsp; | tab上的文字选中时的颜色 |<br>| backgroundColor | HexColor | 否 | &nbsp; | tabBar的背景色 |<br>| list | Array | 是 | &nbsp; | tab页签的列表，最少2个、最多5个tab |</p><p><strong>每个tab项</strong>的配置选项如下</p><p>| 属性 | 类型 | 必填 | 描述 |<br>| :-: | | :-: | | :-: | | :-: |<br>| pagePath | String | 是 | tab 上显示的文字 |<br>| text | String | 是 | 页面路径，页面必须在pages中预先定义|<br>| iconPath | String | 否 | 未选中时的图标路径；当postion 为top时，不显示icon |<br>| selectedIconPath | String | 否 | 选中时的图标路径；当postion为top时，不显示icon |</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;微信全局配置文件app-json&quot;&gt;&lt;a href=&quot;#微信全局配置文件app-json&quot; class=&quot;headerlink&quot; title=&quot;微信全局配置文件app.json&quot;&gt;&lt;/a&gt;微信全局配置文件app.json&lt;/h2&gt;&lt;p&gt;app.json常用配置项：</summary>
+      
+    
+    
+    
+    <category term="微信小程序" scheme="http://www.ifunan.cn/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
     
   </entry>
   
@@ -470,30 +492,6 @@
     
     
     <category term="Ansible" scheme="http://www.ifunan.cn/tags/Ansible/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GlusterFS文件系统搭建</title>
-    <link href="http://www.ifunan.cn/posts/4464fc0a/"/>
-    <id>http://www.ifunan.cn/posts/4464fc0a/</id>
-    <published>2020-04-19T07:27:05.000Z</published>
-    <updated>2020-10-15T08:16:57.894Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="GlusterFS文件系统搭建"><a href="#GlusterFS文件系统搭建" class="headerlink" title="GlusterFS文件系统搭建"></a>GlusterFS文件系统搭建</h1><p>实验环境及配置：两台虚拟机，使用centos6.5系统、最小化安装，具体配置如下</p><table><thead><tr><th align="center">主机名</th><th align="center">系统</th><th align="center">CUP核心</th><th align="center">系统用磁盘空间</th><th align="center">GlusterFS用磁盘空间</th><th align="center">IP(虚拟机使用NAT模式)</th></tr></thead><tbody><tr><td align="center">Gluster01</td><td align="center">CentOS 6.5</td><td align="center">1*2</td><td align="center">30GB</td><td align="center">10GB</td><td align="center">192.168.200.10</td></tr><tr><td align="center">Gluster02</td><td align="center">CentOS 6.5</td><td align="center">1*2</td><td align="center">30GB</td><td align="center">10GB</td><td align="center">192.168.200.20</td></tr></tbody></table><blockquote><p>注：以下操作须在不同server上进行，请看清后再行操作</p></blockquote><h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><h3 id="Gluster01-amp-Gluster02"><a href="#Gluster01-amp-Gluster02" class="headerlink" title="Gluster01 &amp; Gluster02"></a>Gluster01 &amp; Gluster02</h3><ol><li><p>更改IP到主机名映射<br><code>[root@Gluster01]# vi /etc/hosts</code><br>添加如下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.200.10 Gluster01</span><br><span class="line">192.168.200.20 Gluster02</span><br></pre></td></tr></table></figure></li><li><p>更改DNS<br><code>[root@Gluster01]# vi /etc/resolv.conf</code><br>添加如下内容：<br><code>nameserver 114.114.114.114</code></p></li><li><p>修改主机名<br><code>[root@Gluster01]# vi /etc/sysconfig/network</code><br>修改<code>HOSTNAME=Gluster01</code><br><code>[root@Gluster01]# Hostname Gluster01</code></p></li><li><p>关闭SElinux<br><code>[root@Gluster01]# vi /etc/selinux/config</code><br>修改<code>SELINUX=disabled</code><br><code>[root@Gluster01]# setenforce 0</code><br><code>[root@Gluster01]# getenforce</code></p></li><li><p>关闭防火墙<br><code>[root@Gluster01]# iptables -F</code><br><code>[root@Gluster01]# iptables -X</code><br><code>[root@Gluster01]# iptables -Z</code><br><code>[root@Gluster01]# service iptables save</code><br><code>[root@Gluster01]# service iptables stop</code><br><code>[root@Gluster01]# chkconfig iptables off</code></p></li><li><p>配置yum源<br>方法一：<br><code>[root@Gluster01]# vi /etc/yum.repos.d/local.repo</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[glusterfs]</span><br><span class="line">name&#x3D;glusterfs</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;buildlogs.centos.org&#x2F;centos&#x2F;6&#x2F;storage&#x2F;x86_64&#x2F;gluster-3.13&#x2F;</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enable&#x3D;1</span><br></pre></td></tr></table></figure><p><code>[root@Gluster01]# yum clean all</code><br><code>[root@Gluster01]# yum makecache</code></p><blockquote><p>注：如提示ssl连接错误或连接超时请更换镜像，连接不到baseurl里的链接，请使用方法二</p></blockquote><p>方法二：<br><code>[root@Gluster01]# vi /etc/yum.repos.d/local.repo</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[glusterfs]</span><br><span class="line">name&#x3D;glusterfs</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;mnt&#x2F;glusterfs</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enable&#x3D;1</span><br></pre></td></tr></table></figure><p><a href="http://image.lovechenfeng.com/gluster3.13.zip">点我下载glusterfs3.13到本地</a><br>将下载好的包解压后传入目录/mnt/glusterfs中<br><code>[root@Gluster01]# mkdir /mnt/glusterfs</code><br><code>[root@Gluster01]# yum clean all</code><br><code>[root@Gluster01]# yum makecache</code></p></li><li><p>安装glusterfs<br><code>[root@Gluster01]# yum install glusterfs-server xfsprogs -y</code><br><code>[root@Gluster01]# service glusterd status</code><br><code>[root@Gluster01]# service glusterd start</code><br><code>[root@Gluster01]# chkconfig glusterd on</code></p></li></ol><blockquote><p>注：Gluster02也做如上操作，注意修改主机名时主机名不同</p></blockquote><h3 id="Gluster01"><a href="#Gluster01" class="headerlink" title="Gluster01"></a>Gluster01</h3><ol><li>安装时间同步<br><code>[root@Gluster01]# yum install ntp -y</code><br><code>[root@Gluster01]# vi /etc/ntp.conf</code></li><li>编辑ntp配置文件，注释掉其他ntp服务器，加入下面两行<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server  127.127.1.0     </span><br><span class="line">fudge   127.127.1.0 stratum 10</span><br></pre></td></tr></table></figure><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/04/19/JuzOxS.png"></li><li>启动ntp并设置为开机启动<br><code>[root@Gluster01]# service ntpd start</code><br><code>[root@Gluster01]# chkconfig ntpd on</code></li></ol><h3 id="Gluster02"><a href="#Gluster02" class="headerlink" title="Gluster02"></a>Gluster02</h3><p><code>[root@Gluster02]# yum install ntp -y</code><br><code>[root@Gluster02]# service ntpd start</code><br><code>[root@Gluster02]# chkconfig ntpd on</code><br>同步Gluster01的时间到本地<br><code>[root@Gluster02]# ntpdate 192.168.200.10</code></p><h2 id="配置GlusterFS"><a href="#配置GlusterFS" class="headerlink" title="配置GlusterFS"></a>配置GlusterFS</h2><h3 id="Gluster01-1"><a href="#Gluster01-1" class="headerlink" title="Gluster01"></a>Gluster01</h3><ol><li>邀请本机加入gluster<br><code>[root@Gluster01]# gluster peer probe 192.168.200.10</code></li><li>邀请gluster02加入<br><code>[root@Gluster01]# gluster peer probe 192.168.200.20</code></li><li>查看gluster状态<br><code>[root@Gluster01]# gluster peer status</code><br><code>[root@Gluster01]# lsblk</code></li><li>格式化sdb，创建xfs文件系统<br><code>[root@Gluster01]# mkfs.xfs /dev/sdb</code></li><li>创建gluster使用的目录<br><code>[root@Gluster01]# mkdir -p /export/brick1</code></li><li>将sdb挂载到目录<br><code>[root@Gluster01]# mount /dev/sdb /export/brick1</code><br><code>[root@Gluster01]# df -h</code><br><code>[root@Gluster01]# mkdir /export/brick1/fn0</code></li><li>创建条带卷，ID为fn0，将brick1加入进来<br><code>[root@Gluster01]# gluster volume create fn0 stripe 2 192.168.200.10:/export/brick1/fn0 192.168.200.20:/export brick1/fn0</code></li><li>启动卷<br><code>[root@Gluster01]# gluster volume start fn0</code></li><li>查看卷信息<br><code>[root@Gluster01]# gluster volume info</code></li></ol><h3 id="Gluster02-1"><a href="#Gluster02-1" class="headerlink" title="Gluster02"></a>Gluster02</h3><p><code>[root@Gluster02]# lsblk</code></p><ol><li>格式化sdb，创建xfs文件系统<br><code>[root@Gluster02]# mkfs.xfs /dev/sdb</code></li><li>创建gluster使用的目录<br><code>[root@Gluster02]# mkdir -p /export/brick1</code></li><li>将sdb挂载到目录<br><code>[root@Gluster02]# mount /dev/sdb /export/brick1</code><br><code>[root@Gluster02]# df -h</code><br><code>[root@Gluster02]# mkdir /export/brick1/fn0</code></li><li>GlusterFS2作为GlusterFS的客户端进行验证<br><code>[root@Gluster02]# mount -t glusterfs 192.168.200.111:/fn0 /mnt</code></li><li>验证挂载是否成功<br><code>[root@Gluster02]# df -h</code></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;GlusterFS文件系统搭建&quot;&gt;&lt;a href=&quot;#GlusterFS文件系统搭建&quot; class=&quot;headerlink&quot; title=&quot;GlusterFS文件系统搭建&quot;&gt;&lt;/a&gt;GlusterFS文件系统搭建&lt;/h1&gt;&lt;p&gt;实验环境及配置：两台虚拟机，使用ce</summary>
-      
-    
-    
-    
-    <category term="云存储技术" scheme="http://www.ifunan.cn/categories/%E4%BA%91%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="GlusterFS" scheme="http://www.ifunan.cn/tags/GlusterFS/"/>
     
   </entry>
   

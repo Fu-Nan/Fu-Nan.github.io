@@ -6,7 +6,7 @@
   <link href="http://www.ifunan.cn/atom.xml" rel="self"/>
   
   <link href="http://www.ifunan.cn/"/>
-  <updated>2022-03-14T12:22:28.154Z</updated>
+  <updated>2022-04-14T09:59:27.598Z</updated>
   <id>http://www.ifunan.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WeChatApp</title>
+    <link href="http://www.ifunan.cn/posts/b718f216/"/>
+    <id>http://www.ifunan.cn/posts/b718f216/</id>
+    <published>2022-04-14T09:59:20.000Z</published>
+    <updated>2022-04-14T09:59:27.598Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="微信全局配置文件app-json"><a href="#微信全局配置文件app-json" class="headerlink" title="微信全局配置文件app.json"></a>微信全局配置文件app.json</h2><p>app.json常用配置项：</p><ul><li>pages：记录当前小程序所有页面的存放路径</li><li>windows：全局设置小程序窗口的外观</li><li>tabBar：设置小程序底部的tabBar效果</li><li>style：是否启用新版的组件样式</li></ul><p>app.json组成示意图：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/tabBarSetting.png"></p><p>小程序窗口的组成部分：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/Windows.png" alt="窗口组成部分"></p><h3 id="Windows配置项"><a href="#Windows配置项" class="headerlink" title="Windows配置项"></a>Windows配置项</h3><p>| 属性名 | 类型 | 默认值 | 说明 |<br>| :-: | | :-: | | :-: | | :-: |<br>| navigationBarTitleText | String | 字符串 | 导航栏标题文字内容 |<br>| navigationBarBackgroundColor | HexColor | #000000 | 导航栏背景颜色，如 #000000 |<br>| navigationBarTextStyle | String | white | 导航栏标题颜色，仅支持black/white |<br>| backgroundColor | HexColor | #ffffff | 窗口的背景色 |<br>| backgroundTextStyle | String | dark | 下拉 loading 的样式，仅支持dark/light |<br>| enablePullDownRefresh | Boolean | false | 是否全局开启下拉刷新 |<br>| onReachBottomDistance | Number | 50 | 页面上拉触底事件触发时距页面底部距离，单位为px |</p><h3 id="tabBar配置项"><a href="#tabBar配置项" class="headerlink" title="tabBar配置项"></a>tabBar配置项</h3><p>作用： 是移动端应用常见的页面效果，用于<strong>实现多页面的快速切换</strong>。</p><ul><li>tabBar分为<strong>底部tabBar</strong>和<strong>顶部tabBar</strong>。</li><li>当设置为<strong>顶部tabBar</strong>时不显示icon(即按钮图标）,只显示文本。</li><li>tabBar最少2个、最多5个tab页签。<br>tabBar组成示意图及说明如下：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/tabBar.png"></li></ul><p>tabBar配置项如下</p><p>| 属性 | 类型 | 必填 | 默认值 | 描述 |<br>| :-: | | :-: | | :-: | | :-: | | :-: |<br>| position | String | 否 | bottom | tabBar的位置，仅支持bottom/top |<br>| borderStyle | String | 否 | black | tabBar上边框的颜色，仅支持black/white |<br>| color | HexColor | 否 | &nbsp; | tab上文字的默认（未选中）颜色 |<br>| selectedColor | HexColor | 否 | &nbsp; | tab上的文字选中时的颜色 |<br>| backgroundColor | HexColor | 否 | &nbsp; | tabBar的背景色 |<br>| list | Array | 是 | &nbsp; | tab页签的列表，最少2个、最多5个tab |</p><p><strong>每个tab项</strong>的配置选项如下</p><p>| 属性 | 类型 | 必填 | 描述 |<br>| :-: | | :-: | | :-: | | :-: |<br>| pagePath | String | 是 | tab 上显示的文字 |<br>| text | String | 是 | 页面路径，页面必须在pages中预先定义|<br>| iconPath | String | 否 | 未选中时的图标路径；当postion 为top时，不显示icon |<br>| selectedIconPath | String | 否 | 选中时的图标路径；当postion为top时，不显示icon |</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;微信全局配置文件app-json&quot;&gt;&lt;a href=&quot;#微信全局配置文件app-json&quot; class=&quot;headerlink&quot; title=&quot;微信全局配置文件app.json&quot;&gt;&lt;/a&gt;微信全局配置文件app.json&lt;/h2&gt;&lt;p&gt;app.json常用配置项：</summary>
+      
+    
+    
+    
+    <category term="微信小程序" scheme="http://www.ifunan.cn/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>DJI调光教程</title>
@@ -87,28 +109,6 @@
     
     
     <category term="HTML" scheme="http://www.ifunan.cn/tags/HTML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WeChatApp</title>
-    <link href="http://www.ifunan.cn/posts/b718f216/"/>
-    <id>http://www.ifunan.cn/posts/b718f216/</id>
-    <published>2021-12-06T09:34:40.000Z</published>
-    <updated>2022-04-14T09:57:15.426Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="微信全局配置文件app-json"><a href="#微信全局配置文件app-json" class="headerlink" title="微信全局配置文件app.json"></a>微信全局配置文件app.json</h2><p>app.json常用配置项：</p><ul><li>pages：记录当前小程序所有页面的存放路径</li><li>windows：全局设置小程序窗口的外观</li><li>tabBar：设置小程序底部的tabBar效果</li><li>style：是否启用新版的组件样式</li></ul><p>app.json组成示意图：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/tabBarSetting.png"></p><p>小程序窗口的组成部分：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/Windows.png" alt="窗口组成部分"></p><h3 id="Windows配置项"><a href="#Windows配置项" class="headerlink" title="Windows配置项"></a>Windows配置项</h3><p>| 属性名 | 类型 | 默认值 | 说明 |<br>| :-: | | :-: | | :-: | | :-: |<br>| navigationBarTitleText | String | 字符串 | 导航栏标题文字内容 |<br>| navigationBarBackgroundColor | HexColor | #000000 | 导航栏背景颜色，如 #000000 |<br>| navigationBarTextStyle | String | white | 导航栏标题颜色，仅支持black/white |<br>| backgroundColor | HexColor | #ffffff | 窗口的背景色 |<br>| backgroundTextStyle | String | dark | 下拉 loading 的样式，仅支持dark/light |<br>| enablePullDownRefresh | Boolean | false | 是否全局开启下拉刷新 |<br>| onReachBottomDistance | Number | 50 | 页面上拉触底事件触发时距页面底部距离，单位为px |</p><h3 id="tabBar配置项"><a href="#tabBar配置项" class="headerlink" title="tabBar配置项"></a>tabBar配置项</h3><p>作用： 是移动端应用常见的页面效果，用于<strong>实现多页面的快速切换</strong>。</p><ul><li>tabBar分为<strong>底部tabBar</strong>和<strong>顶部tabBar</strong>。</li><li>当设置为<strong>顶部tabBar</strong>时不显示icon(即按钮图标）,只显示文本。</li><li>tabBar最少2个、最多5个tab页签。<br>tabBar组成示意图及说明如下：<br><img src= "/img/loading.gif" data-lazy-src="/images/WeChatApp/tabBar.png"></li></ul><p>tabBar配置项如下</p><p>| 属性 | 类型 | 必填 | 默认值 | 描述 |<br>| :-: | | :-: | | :-: | | :-: | | :-: |<br>| position | String | 否 | bottom | tabBar的位置，仅支持bottom/top |<br>| borderStyle | String | 否 | black | tabBar上边框的颜色，仅支持black/white |<br>| color | HexColor | 否 | &nbsp; | tab上文字的默认（未选中）颜色 |<br>| selectedColor | HexColor | 否 | &nbsp; | tab上的文字选中时的颜色 |<br>| backgroundColor | HexColor | 否 | &nbsp; | tabBar的背景色 |<br>| list | Array | 是 | &nbsp; | tab页签的列表，最少2个、最多5个tab |</p><p><strong>每个tab项</strong>的配置选项如下</p><p>| 属性 | 类型 | 必填 | 描述 |<br>| :-: | | :-: | | :-: | | :-: |<br>| pagePath | String | 是 | tab 上显示的文字 |<br>| text | String | 是 | 页面路径，页面必须在pages中预先定义|<br>| iconPath | String | 否 | 未选中时的图标路径；当postion 为top时，不显示icon |<br>| selectedIconPath | String | 否 | 选中时的图标路径；当postion为top时，不显示icon |</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;微信全局配置文件app-json&quot;&gt;&lt;a href=&quot;#微信全局配置文件app-json&quot; class=&quot;headerlink&quot; title=&quot;微信全局配置文件app.json&quot;&gt;&lt;/a&gt;微信全局配置文件app.json&lt;/h2&gt;&lt;p&gt;app.json常用配置项：</summary>
-      
-    
-    
-    
-    <category term="微信小程序" scheme="http://www.ifunan.cn/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
-    
     
   </entry>
   
